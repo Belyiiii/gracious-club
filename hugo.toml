@@ -1,0 +1,16 @@
+baseURL = '/'
+languageCode = 'ru'
+title = 'Online клуб грациозных — Алёна Останина'
+theme = 'gracious'
+
+[params]
+  author = "Алёна Останина"
+  description = "Мягкие домашние тренировки, которые меняют тело и ощущение себя"
+  instagram = "https://www.instagram.com/alena__ostanina"
+  telegram = "https://t.me/alena_ostanina"
+  clubLink = "#"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -1,0 +1,354 @@
+{{ define "main" }}
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge animate-fade-down">Online клуб</div>
+    <h1 class="hero-title animate-fade-up">
+      Клуб<br><em>грациозных</em>
+    </h1>
+    <p class="hero-subtitle animate-fade-up delay-1">
+      Мягкие тренировки, которые меняют тело<br>и&nbsp;ощущение себя
+    </p>
+    <p class="hero-author animate-fade-up delay-2">Алёна Останина</p>
+    <a href="{{ .Site.Params.clubLink }}" class="btn btn-primary animate-fade-up delay-3">Вступить в клуб</a>
+  </div>
+  <div class="scroll-indicator animate-fade-up delay-4">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== ЗНАКОМО? ===== -->
+<section class="section section--light" id="about">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Знакомо?</span>
+      <h2 class="title">Когда тело не радует,<br>а&nbsp;мешает</h2>
+      <p class="subtitle">Ты занимаешься, стараешься, но что-то не так. Спина ноет, осанка не держится, после зала — только усталость и боль.</p>
+    </div>
+
+    <div class="pain-grid reveal">
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+        </div>
+        <h3>Спина и шея</h3>
+        <p>Постоянная скованность, боль, защемления. Сидячая работа добивает.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/><path d="M8 12h8"/></svg>
+        </div>
+        <h3>Отёчность</h3>
+        <p>Думаешь — лишний вес. А это отёки. И «качание пресса» их не уберёт.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        </div>
+        <h3>Вредишь себе</h3>
+        <p>Качаешь пресс — убиваешь поясницу. Тянешься — зажимаешь шею. Без понимания техники — только хуже.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Нет времени</h3>
+        <p>Дети, работа, дом. Час на зал — роскошь. А 15 минут утром — реально.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <h3>Не чувствуешь тело</h3>
+        <p>Даже в зале с весами — ноль ощущений. Мышцы работают, а ты их не слышишь.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.88 9.88a3 3 0 104.24 4.24M10.73 5.08A10.45 10.45 0 0112 5c7 0 10 7 10 7a13.16 13.16 0 01-1.67 2.68M6.61 6.61A13.526 13.526 0 002 12s3 7 10 7a9.74 9.74 0 005.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+        </div>
+        <h3>Выгорание</h3>
+        <p>Начинала, бросала, ругала себя. Опять начинала. Порочный круг.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПОДХОД ===== -->
+<section class="section section--warm">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Мой подход</span>
+      <h2 class="title">Не упахивание,<br>а&nbsp;<em>понимание</em> тела</h2>
+      <p class="subtitle">Я не заставляю тебя выживать на тренировке. Учу чувствовать и понимать своё тело — а результат приходит сам.</p>
+    </div>
+
+    <div class="approach-list reveal">
+      <div class="approach-card">
+        <div class="approach-num">01</div>
+        <div class="approach-body">
+          <h3>Мягко и безопасно</h3>
+          <p>30 минут без дикой боли. Функциональный тренинг, пилатес, йога, МФР — всё, что нужно телу, без насилия.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">02</div>
+        <div class="approach-body">
+          <h3>Объясняю «почему»</h3>
+          <p>Каждое упражнение — с объяснением. Как делать правильно и как НЕ нужно. Ты понимаешь тело, а не тупо повторяешь.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">03</div>
+        <div class="approach-body">
+          <h3>Вписывается в жизнь</h3>
+          <p>Зарядки 15 минут утром, тренировки 30. Из дома, в удобное время. Мамы с детьми — тоже занимаются.</p>
+        </div>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">04</div>
+        <div class="approach-body">
+          <h3>Не надоедает</h3>
+          <p>Каждый месяц — новый фокус. 300+ записей в библиотеке. Это не «одно и то же» по кругу.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ФОРМАТЫ ===== -->
+<section class="section section--dark" id="formats">
+  <div class="container">
+    <div class="reveal">
+      <span class="label label--gold">Что внутри клуба</span>
+      <h2 class="title title--white">Всё для тела<br>и&nbsp;хорошего настроения</h2>
+    </div>
+
+    <div class="format-grid reveal">
+      <div class="format-card">
+        <div class="format-icon">🔥</div>
+        <h3>Тренировки 3×/нед</h3>
+        <p>Живые эфиры в Zoom по 30 минут. Функционалка, пилатес, силовые, МФР.</p>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">☀️</div>
+        <h3>Зарядки каждый день</h3>
+        <p>15 минут утром — и ты заряжена. 5 раз в неделю. Даже если «нет настроения».</p>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">📚</div>
+        <h3>300+ записей</h3>
+        <p>Все тренировки и зарядки в записи. Занимайся когда удобно, выбирай нужную зону.</p>
+      </div>
+      <div class="format-card">
+        <div class="format-icon">💬</div>
+        <h3>Комьюнити</h3>
+        <p>Чат, эфиры, челленджи, рецепты. Все на одной волне — это не просто тренировки.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ПРОГРАММА 2026 ===== -->
+<section class="section section--light" id="program">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Программа 2026</span>
+      <h2 class="title">Год заботы<br>о&nbsp;каждой части тела</h2>
+      <p class="subtitle">Каждый месяц — новая тема. За год прорабатываем всё тело системно.</p>
+    </div>
+
+    <div class="program-grid reveal">
+      <div class="month-card"><span class="month-num">01</span><span class="month-name">Январь</span><span class="month-theme">Мягкий перезапуск</span></div>
+      <div class="month-card month-card--active"><span class="month-num">02</span><span class="month-name">Февраль</span><span class="month-theme">Осанка и грудной отдел</span></div>
+      <div class="month-card"><span class="month-num">03</span><span class="month-name">Март</span><span class="month-theme">Ноги и ягодицы</span></div>
+      <div class="month-card"><span class="month-num">04</span><span class="month-name">Апрель</span><span class="month-theme">Тазовое дно</span></div>
+      <div class="month-card"><span class="month-num">05</span><span class="month-name">Май</span><span class="month-theme">Руки и плечи</span></div>
+      <div class="month-card"><span class="month-num">06</span><span class="month-name">Июнь</span><span class="month-theme">Всё тело + кардио</span></div>
+      <div class="month-card"><span class="month-num">07</span><span class="month-name">Июль</span><span class="month-theme">Растяжка и гибкость</span></div>
+      <div class="month-card"><span class="month-num">08</span><span class="month-name">Август</span><span class="month-theme">Баланс и координация</span></div>
+      <div class="month-card"><span class="month-num">09</span><span class="month-name">Сентябрь</span><span class="month-theme">Пресс и кор</span></div>
+      <div class="month-card"><span class="month-num">10</span><span class="month-name">Октябрь</span><span class="month-theme">Спина и поясница</span></div>
+      <div class="month-card"><span class="month-num">11</span><span class="month-name">Ноябрь</span><span class="month-theme">Ноги и ягодицы 2.0</span></div>
+      <div class="month-card"><span class="month-num">12</span><span class="month-name">Декабрь</span><span class="month-theme">Итоги года</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ОТЗЫВЫ ===== -->
+<section class="section section--warm" id="reviews">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Отзывы</span>
+      <h2 class="title">Девочки говорят<br>лучше меня</h2>
+    </div>
+
+    <div class="reviews-carousel reveal">
+      <div class="reviews-track" id="reviewsTrack">
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Почувствовала те мышцы, которые <strong>даже в зале не чувствовала</strong>. Тренировка прошла мягко. Нет дикой боли как после силовой.</p>
+          <div class="review-stars">★★★★★</div>
+          <!-- <img src="images/reviews/1.jpg" class="review-photo" alt=""> -->
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Самый главный инсайт: <strong>осанку держат лопатки и плечи, а не поясница!</strong> Спасибо, что поняла это в 29, а не в 70.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p><strong>Впервые не отлыниваю</strong>. Абонемент в зал хочу сдать. МФР — открытие года! Мои «тролльные ноги» — всего лишь отёк.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Впервые за несколько лет <strong>гармонично вписала спорт в жизнь</strong>. Уже месяц никаких отёков, никаких зажимов.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Как бывшему обывателю зала — <strong>это как новый мир открывается</strong>. Все проблемы начались, потому что заставляла себя на пределах.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Упражнение на ролике — <strong>спасение нереальное</strong>. Даже в йоге не нашла ничего похожего. Низкий поклон за свободу спине.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>7 потов сошло, при этом ощущение, что <strong>тренировка длится 5 минут</strong>. Загрузились спина, плечи, задняя поверхность бедра.</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">"</div>
+          <p>Живот подкачался <strong>без классической качки пресса</strong>! Пошла на сальсу и в зеркалах заметила, какая у меня ровная спина!</p>
+          <div class="review-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="reviews-nav">
+        <button class="reviews-btn reviews-btn--prev" id="reviewsPrev" aria-label="Назад">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="reviews-dots" id="reviewsDots"></div>
+        <button class="reviews-btn reviews-btn--next" id="reviewsNext" aria-label="Вперёд">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ГАЛЕРЕЯ ===== -->
+<section class="section section--light" id="gallery">
+  <div class="container">
+    <div class="reveal">
+      <span class="label">Галерея</span>
+      <h2 class="title">Как это выглядит</h2>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <!-- Placeholder cards — replace src with real photos -->
+      <div class="gallery-item gallery-item--tall">
+        <div class="gallery-placeholder">
+          <span>Фото 1</span>
+          <small>Тренировка в Zoom</small>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>Фото 2</span>
+          <small>Утренняя зарядка</small>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>Фото 3</span>
+          <small>МФР с роликом</small>
+        </div>
+      </div>
+      <div class="gallery-item gallery-item--wide">
+        <div class="gallery-placeholder">
+          <span>Фото 4</span>
+          <small>Результаты клиенток</small>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>Фото 5</span>
+          <small>Алёна ведёт эфир</small>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span>Фото 6</span>
+          <small>Челлендж</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img src="" alt="" class="lightbox-img" id="lightboxImg">
+  <div class="lightbox-nav">
+    <button class="lightbox-prev" id="lightboxPrev">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-next" id="lightboxNext">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===== ЦИФРЫ ===== -->
+<section class="section section--stats">
+  <div class="container">
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="stat-number" data-count="300">0</div>
+        <div class="stat-plus">+</div>
+        <div class="stat-label">записей<br>в библиотеке</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="30">0</div>
+        <div class="stat-unit">мин</div>
+        <div class="stat-label">одна<br>тренировка</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="15">0</div>
+        <div class="stat-unit">мин</div>
+        <div class="stat-label">утренняя<br>зарядка</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section section--cta">
+  <div class="container">
+    <div class="cta-content reveal">
+      <h2 class="title title--white">Попробуй и&nbsp;почувствуй<br>разницу</h2>
+      <p class="cta-sub">Мягко. Эффективно. Без насилия над собой.</p>
+      <a href="{{ .Site.Params.clubLink }}" class="btn btn-white">Вступить в клуб</a>
+      <div class="cta-socials">
+        <a href="{{ .Site.Params.instagram }}" target="_blank" class="cta-social-link">
+          📸 Instagram
+        </a>
+        <a href="{{ .Site.Params.telegram }}" target="_blank" class="cta-social-link">
+          ✈️ Telegram
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ end }}

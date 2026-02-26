@@ -1,0 +1,26 @@
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="{{ "/" | relURL }}" class="nav-logo">Алёна Останина</a>
+    <div class="nav-links">
+      <a href="#about">О клубе</a>
+      <a href="#formats">Форматы</a>
+      <a href="#program">Программа</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#gallery">Галерея</a>
+      <a href="{{ .Site.Params.clubLink }}" class="nav-cta">Вступить</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">О клубе</a>
+  <a href="#formats" class="mobile-link">Форматы</a>
+  <a href="#program" class="mobile-link">Программа</a>
+  <a href="#reviews" class="mobile-link">Отзывы</a>
+  <a href="#gallery" class="mobile-link">Галерея</a>
+  <a href="{{ .Site.Params.clubLink }}" class="mobile-link mobile-cta">Вступить в клуб</a>
+</div>
