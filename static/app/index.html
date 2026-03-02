@@ -8,8 +8,7 @@
 <style>
   :root {
     --bg: #0e0b14;
-    --card: #16112299;
-    --card-solid: #161122;
+    --card: rgba(22,17,34,0.95);
     --border: rgba(255,255,255,0.07);
     --accent: #d4a0ff;
     --accent2: #ff7eb3;
@@ -20,461 +19,226 @@
     --muted: #8878a8;
     --radius: 20px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content: ''; position: fixed; inset: 0;
     background:
       radial-gradient(ellipse 70% 50% at 90% -10%, rgba(212,160,255,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at -10% 80%, rgba(255,126,179,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(255,209,102,0.04) 0%, transparent 70%);
+      radial-gradient(ellipse 50% 40% at -10% 80%, rgba(255,126,179,0.1) 0%, transparent 60%);
     pointer-events: none; z-index: 0;
   }
-
   .page { position: relative; z-index: 1; }
-
-  /* ── SCREENS ── */
   .screen { display: none; min-height: 100vh; }
-  .screen.active { display: block; }
-  #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+  .screen.active { display: flex; flex-direction: column; }
+  #login-screen { align-items: center; justify-content: center; padding: 24px; }
 
-  /* ── LOGIN ── */
+  /* LOGIN */
   .login-top { text-align: center; margin-bottom: 40px; }
-
-  .logo-mark {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-
+  .logo-mark { font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .login-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 10vw, 52px);
-    font-weight: 700;
-    font-style: italic;
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 12vw, 56px);
+    font-weight: 700; font-style: italic;
     background: linear-gradient(135deg, #d4a0ff 0%, #ff7eb3 50%, #ffd166 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    line-height: 1.1;
-    margin-bottom: 10px;
+    line-height: 1.1; margin-bottom: 10px;
   }
-
   .login-sub { color: var(--muted); font-size: 15px; font-weight: 600; }
-
   .login-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(20px);
-    border-radius: 28px;
-    padding: 36px 28px;
-    width: 100%; max-width: 360px;
+    background: var(--card); border: 1px solid var(--border);
+    backdrop-filter: blur(20px); border-radius: 28px;
+    padding: 36px 28px; width: 100%; max-width: 360px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
   }
-
   .login-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 28px; text-align: center; }
+  .tg-widget-wrap { display: flex; justify-content: center; min-height: 56px; margin-bottom: 8px; }
+  .login-hint { color: var(--muted); font-size: 12px; text-align: center; margin-top: 12px; line-height: 1.6; }
+  .login-features { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .feat { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,0.03); font-size: 13px; font-weight: 700; color: var(--muted); }
+  .feat-icon { font-size: 18px; flex-shrink: 0; }
 
-  .tg-btn {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    width: 100%; padding: 17px 24px;
-    background: linear-gradient(135deg, #2aabee, #1a94d4);
-    color: white; border: none; border-radius: 16px;
-    font-size: 17px; font-weight: 800; font-family: 'Nunito', sans-serif;
-    cursor: pointer; transition: all 0.25s;
-    box-shadow: 0 10px 30px rgba(42,171,238,0.3);
-  }
-  .tg-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(42,171,238,0.45); }
-  .tg-btn:active { transform: translateY(0); }
-  .tg-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
-
-  .login-features { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
-  .feat {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px; border-radius: 12px;
-    background: rgba(255,255,255,0.03);
-    font-size: 13px; font-weight: 700; color: var(--muted);
-  }
-  .feat-icon { font-size: 20px; flex-shrink: 0; }
-
-  /* ── DASHBOARD ── */
+  /* DASHBOARD */
   #dash-screen { padding-bottom: 90px; }
-
-  .top-bar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 20px 0; max-width: 480px; margin: 0 auto;
-  }
-
+  .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 0; max-width: 480px; margin: 0 auto; width: 100%; }
   .brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px; font-weight: 700; font-style: italic;
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; font-style: italic;
     background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
+  .logout-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted); padding: 8px 14px; border-radius: 10px; font-size: 12px; cursor: pointer; font-family: 'Nunito', sans-serif; font-weight: 700; transition: all 0.2s; }
+  .logout-btn:hover { background: rgba(255,126,179,0.1); color: var(--accent2); }
+  .content { max-width: 480px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; width: 100%; }
 
-  .logout-btn {
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    color: var(--muted); padding: 8px 14px; border-radius: 10px;
-    font-size: 12px; cursor: pointer; font-family: 'Nunito', sans-serif; font-weight: 700;
-    transition: all 0.2s;
-  }
-  .logout-btn:hover { background: rgba(255,126,179,0.1); color: var(--accent2); border-color: rgba(255,126,179,0.3); }
-
-  .content { max-width: 480px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-
-  /* ── HERO ── */
-  .hero {
-    background: linear-gradient(135deg, #1a1028, #2a1040);
-    border: 1px solid rgba(212,160,255,0.2);
-    border-radius: var(--radius);
-    padding: 22px;
-    display: flex; gap: 16px; align-items: center;
-    position: relative; overflow: hidden;
-  }
-  .hero::after {
-    content: '✨';
-    position: absolute; top: 16px; right: 20px;
-    font-size: 28px; opacity: 0.4;
-  }
-
-  .avatar {
-    width: 68px; height: 68px; border-radius: 50%;
-    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px; flex-shrink: 0;
-    border: 2px solid rgba(212,160,255,0.3);
-    box-shadow: 0 0 24px rgba(212,160,255,0.3);
-  }
-
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #1a1028, #2a1040); border: 1px solid rgba(212,160,255,0.2); border-radius: var(--radius); padding: 22px; display: flex; gap: 16px; align-items: center; position: relative; overflow: hidden; }
+  .hero::after { content: '✨'; position: absolute; top: 16px; right: 20px; font-size: 28px; opacity: 0.35; }
+  .avatar { width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #d4a0ff, #ff7eb3); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; font-weight: 900; color: white; border: 2px solid rgba(212,160,255,0.3); box-shadow: 0 0 24px rgba(212,160,255,0.3); overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
   .hero-info { flex: 1; min-width: 0; }
-  .hero-name { font-size: 19px; font-weight: 900; margin-bottom: 6px; }
+  .hero-name { font-size: 19px; font-weight: 900; margin-bottom: 4px; }
+  .hero-tg { color: var(--muted); font-size: 12px; font-weight: 700; margin-bottom: 8px; }
 
-  .lvl-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: linear-gradient(135deg, rgba(212,160,255,0.15), rgba(255,126,179,0.15));
-    border: 1px solid rgba(212,160,255,0.3);
-    border-radius: 20px; padding: 3px 10px;
-    font-size: 12px; font-weight: 800; color: #e0bcff;
-    margin-bottom: 8px;
-  }
+  /* SUBSCRIPTION */
+  .sub-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 800; }
+  .sub-badge.active { background: rgba(114,239,176,0.15); border: 1px solid rgba(114,239,176,0.3); color: #72efb0; }
+  .sub-badge.inactive { background: rgba(255,126,179,0.1); border: 1px solid rgba(255,126,179,0.25); color: #ff7eb3; }
+  .sub-expires { color: var(--muted); font-size: 11px; font-weight: 700; margin-top: 4px; }
 
-  .prog-wrap { background: rgba(255,255,255,0.07); border-radius: 10px; height: 5px; overflow: hidden; }
-  .prog-bar { height: 100%; background: linear-gradient(90deg, #d4a0ff, #ff7eb3); border-radius: 10px; transition: width 1s ease; }
-  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-weight: 700; margin-top: 4px; }
+  /* LOCKED */
+  .locked-card { background: rgba(255,126,179,0.04); border: 1px solid rgba(255,126,179,0.2); border-radius: var(--radius); padding: 28px 24px; text-align: center; }
+  .locked-icon { font-size: 44px; margin-bottom: 14px; }
+  .locked-title { font-size: 18px; font-weight: 900; margin-bottom: 10px; color: #ff7eb3; }
+  .locked-text { color: var(--muted); font-size: 13px; line-height: 1.7; margin-bottom: 20px; }
+  .sub-btn { display: inline-block; padding: 14px 32px; background: linear-gradient(135deg, #d4a0ff, #ff7eb3); color: white; border-radius: 14px; font-weight: 800; font-size: 15px; text-decoration: none; transition: all 0.2s; }
+  .sub-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,160,255,0.3); }
 
-  /* ── STATS ── */
+  /* STATS */
   .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-  .stat {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px;
-    position: relative; overflow: hidden;
-    transition: transform 0.2s;
-  }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; position: relative; overflow: hidden; transition: transform 0.2s; }
   .stat:hover { transform: translateY(-2px); }
   .stat-glow { position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; border-radius: 50%; opacity: 0.12; }
   .stat-emoji { font-size: 22px; margin-bottom: 8px; }
   .stat-val { font-size: 26px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
   .stat-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
 
-  /* ── CHECKIN ── */
-  .checkin {
-    background: linear-gradient(135deg, #101a14, #121e18);
-    border: 1px solid rgba(114,239,176,0.2);
-    border-radius: var(--radius); padding: 20px;
-  }
-  .section-title {
-    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
-  }
-  .checkin .section-title { color: #72efb0; }
-
-  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-  .day {
-    aspect-ratio: 1; border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 2px; font-size: 9px; font-weight: 800;
-    color: var(--muted); background: rgba(255,255,255,0.04);
-  }
-  .day.done { background: linear-gradient(135deg, #72efb0, #4ade80); color: #052e16; box-shadow: 0 4px 12px rgba(114,239,176,0.25); }
-  .day.today { border: 1.5px solid rgba(114,239,176,0.5); color: #72efb0; }
-  .day-ch { font-size: 13px; }
-
-  /* ── INFO CARD ── */
-  .info-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 20px;
-  }
-  .info-card .section-title { color: var(--accent); }
-  .row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 14px;
-  }
+  /* INFO */
+  .info-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .section-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--accent); }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
   .row:last-child { border-bottom: none; }
   .row-lbl { color: var(--muted); font-weight: 600; }
   .row-val { font-weight: 800; }
 
-  /* ── SCHEDULE ── */
-  .schedule-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 20px;
-  }
-  .schedule-card .section-title { color: var(--accent3); }
-  .sched-item {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 13px;
-  }
-  .sched-item:last-child { border-bottom: none; }
-  .sched-day {
-    background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.2);
-    color: var(--gold); border-radius: 8px; padding: 4px 8px;
-    font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0;
-  }
-  .sched-info { flex: 1; }
-  .sched-name { font-weight: 800; margin-bottom: 2px; }
-  .sched-time { color: var(--muted); font-size: 12px; font-weight: 600; }
-  .sched-zoom {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(42,171,238,0.12); color: #7ac8f5;
-    border: 1px solid rgba(42,171,238,0.2);
-    border-radius: 8px; padding: 4px 10px;
-    font-size: 11px; font-weight: 800; text-decoration: none; margin-top: 5px;
-  }
-
-  /* ── ACTIONS ── */
+  /* ACTIONS */
   .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .act {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 18px 14px;
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text);
-  }
-  .act:hover { transform: translateY(-3px); border-color: rgba(212,160,255,0.3); background: rgba(212,160,255,0.06); }
-  .act-icon {
-    width: 50px; height: 50px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center; font-size: 26px;
-  }
+  .act { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text); }
+  .act:hover { transform: translateY(-3px); border-color: rgba(212,160,255,0.3); }
+  .act-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
   .act-lbl { font-size: 12px; font-weight: 800; text-align: center; line-height: 1.3; }
 
-  /* ── BOTTOM NAV ── */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: rgba(14,11,20,0.95); backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border);
-    display: none; justify-content: space-around;
-    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
-    z-index: 100;
-  }
-  .nav-it {
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    color: var(--muted); font-size: 10px; font-weight: 800;
-    padding: 6px 14px; border-radius: 12px; cursor: pointer; transition: all 0.2s;
-  }
+  /* BOTTOM NAV */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(14,11,20,0.97); backdrop-filter: blur(20px); border-top: 1px solid var(--border); display: none; justify-content: space-around; padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); z-index: 100; }
+  .nav-it { display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--muted); font-size: 10px; font-weight: 800; padding: 6px 14px; border-radius: 12px; cursor: pointer; transition: color 0.2s; }
   .nav-it.active { color: var(--accent); }
   .nav-em { font-size: 21px; }
 
-  /* ── ANIMATIONS ── */
-  @keyframes slideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  .fade-in { opacity: 0; animation: slideUp 0.5s ease forwards; }
-  .fade-in:nth-child(1) { animation-delay:0.00s; }
-  .fade-in:nth-child(2) { animation-delay:0.07s; }
-  .fade-in:nth-child(3) { animation-delay:0.14s; }
-  .fade-in:nth-child(4) { animation-delay:0.21s; }
-  .fade-in:nth-child(5) { animation-delay:0.28s; }
-  .fade-in:nth-child(6) { animation-delay:0.35s; }
-  .fade-in:nth-child(7) { animation-delay:0.42s; }
-
-  /* ── LOADER ── */
-  .loader {
-    position: fixed; inset: 0; background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 200; transition: opacity 0.4s;
-  }
+  /* LOADER */
+  .loader { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 200; transition: opacity 0.4s; gap: 16px; }
   .spin { width: 44px; height: 44px; border: 3px solid rgba(212,160,255,0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .loader-text { color: var(--muted); font-size: 14px; font-weight: 700; }
 
-  /* ── MODAL ── */
-  .modal-bg {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 300; padding: 20px;
-  }
-  .modal {
-    background: #1a1128; border: 1px solid rgba(212,160,255,0.2);
-    border-radius: 24px; padding: 32px 28px;
-    max-width: 320px; width: 100%; text-align: center;
-  }
-  .modal-icon { font-size: 52px; margin-bottom: 16px; }
-  .modal-title { font-size: 19px; font-weight: 900; margin-bottom: 8px; }
-  .modal-text { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
-  .modal-btns { display: flex; gap: 10px; }
-  .modal-cancel {
-    flex: 1; padding: 13px; border-radius: 12px;
-    border: 1px solid var(--border); background: transparent;
-    color: var(--muted); font-family: 'Nunito', sans-serif; font-size: 14px; cursor: pointer;
-  }
-  .modal-ok {
-    flex: 1; padding: 13px; border-radius: 12px; border: none;
-    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
-    color: white; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer;
-  }
+  /* TOAST */
+  .toast { position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%); background: rgba(22,17,34,0.95); border: 1px solid rgba(114,239,176,0.4); color: #72efb0; padding: 12px 24px; border-radius: 20px; font-weight: 800; font-size: 14px; z-index: 400; white-space: nowrap; animation: toastIn 0.3s ease; }
 
-  /* ── MONTH THEME ── */
-  .month-card {
-    background: linear-gradient(135deg, #1a1228, #221535);
-    border: 1px solid rgba(255,126,179,0.2);
-    border-radius: var(--radius); padding: 20px;
-  }
-  .month-card .section-title { color: var(--accent2); }
-  .month-theme { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
-  .month-desc { color: var(--muted); font-size: 13px; line-height: 1.6; }
+  @keyframes toastIn { from { opacity:0; transform: translateX(-50%) translateY(10px); } to { opacity:1; transform: translateX(-50%) translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  .fi { opacity:0; animation: fadeIn 0.45s ease forwards; }
+  .fi:nth-child(1){animation-delay:.00s}.fi:nth-child(2){animation-delay:.07s}.fi:nth-child(3){animation-delay:.14s}.fi:nth-child(4){animation-delay:.21s}.fi:nth-child(5){animation-delay:.28s}
 </style>
 </head>
 <body class="page">
 
-<!-- LOADER -->
-<div class="loader" id="loader"><div class="spin"></div></div>
+<div class="loader" id="loader">
+  <div class="spin"></div>
+  <div class="loader-text" id="loader-text">Загрузка...</div>
+</div>
 
-<!-- ════ LOGIN ════ -->
-<div class="screen active page" id="login-screen">
+<!-- ══ LOGIN ══ -->
+<div class="screen page" id="login-screen">
   <div class="login-top">
     <div class="logo-mark">Online клуб</div>
     <div class="login-title">30ForMe</div>
     <div class="login-sub">Грациозно. Мягко. Регулярно. 💜</div>
   </div>
-
   <div class="login-card">
-    <p class="login-desc">Твой личный кабинет — расписание, монеты, прогресс и библиотека 300+ тренировок 🎯</p>
+    <p class="login-desc">Войди через Telegram — никаких паролей, один клик 🚀</p>
 
-    <button class="tg-btn" onclick="openTgModal()">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.947l-2.963-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.991.612z"/></svg>
-      Войти через Telegram
-    </button>
+    <!-- Реальный Telegram Login Widget -->
+    <div class="tg-widget-wrap">
+      <script
+        async
+        src="https://telegram.org/js/telegram-widget.js?22"
+        data-telegram-login="AlenaOstanina_bot"
+        data-size="large"
+        data-radius="12"
+        data-onauth="onTelegramAuth(user)"
+        data-request-access="write">
+      </script>
+    </div>
 
+    <div class="login-hint">🔒 Только имя и Telegram ID. Ничего лишнего.</div>
     <div class="login-features">
-      <div class="feat"><span class="feat-icon">🏆</span> Уровень, монеты и твой прогресс</div>
-      <div class="feat"><span class="feat-icon">⚡</span> Зарядки — отмечай каждое утро</div>
-      <div class="feat"><span class="feat-icon">🎥</span> 300+ тренировок всегда под рукой</div>
-      <div class="feat"><span class="feat-icon">📅</span> Расписание Zoom-эфиров</div>
+      <div class="feat"><span class="feat-icon">🏆</span> Уровень, монеты и прогресс</div>
+      <div class="feat"><span class="feat-icon">⚡</span> Отмечай утренние зарядки</div>
+      <div class="feat"><span class="feat-icon">🎥</span> 300+ тренировок в библиотеке</div>
     </div>
   </div>
 </div>
 
-<!-- ════ DASHBOARD ════ -->
+<!-- ══ DASHBOARD ══ -->
 <div class="screen page" id="dash-screen">
   <div class="top-bar">
     <span class="brand">30ForMe</span>
     <button class="logout-btn" onclick="doLogout()">Выйти</button>
   </div>
-
   <div class="content">
 
     <!-- Hero -->
-    <div class="hero fade-in">
-      <div class="avatar" id="u-avatar">🌸</div>
+    <div class="hero fi">
+      <div class="avatar" id="u-avatar">👤</div>
       <div class="hero-info">
-        <div class="hero-name" id="u-name">Загрузка...</div>
-        <div class="lvl-badge">⚡ <span id="u-level">Уровень 1</span></div>
-        <div class="prog-label">
-          <span id="u-trains">0 тренировок</span>
-          <span id="u-next">след. уровень</span>
+        <div class="hero-name" id="u-name">—</div>
+        <div class="hero-tg" id="u-tg"></div>
+        <div id="u-sub-badge" class="sub-badge inactive">⏳ Нет подписки</div>
+        <div class="sub-expires" id="u-expires"></div>
+      </div>
+    </div>
+
+    <!-- Нет подписки -->
+    <div class="locked-card fi" id="no-sub-card" style="display:none">
+      <div class="locked-icon">🔒</div>
+      <div class="locked-title">Доступ ограничен</div>
+      <div class="locked-text">
+        Тренировки, зарядки каждое утро и библиотека 300+ записей доступны с активной подпиской.<br><br>
+        Попробуй первый месяц — тело скажет спасибо 💜
+      </div>
+      <a href="https://t.me/alena_ostanina" target="_blank" class="sub-btn">✨ Оформить подписку</a>
+    </div>
+
+    <!-- Есть подписка -->
+    <div id="sub-content" style="display:contents">
+
+      <div class="stats-row fi" id="stats-block" style="display:none">
+        <div class="stat">
+          <div class="stat-glow" style="background:#ffd166"></div>
+          <div class="stat-emoji">🪙</div>
+          <div class="stat-val" id="u-coins" style="color:#ffd166">—</div>
+          <div class="stat-lbl">Монет</div>
         </div>
-        <div class="prog-wrap"><div class="prog-bar" id="u-bar" style="width:0%"></div></div>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-row fade-in">
-      <div class="stat">
-        <div class="stat-glow" style="background:#ffd166"></div>
-        <div class="stat-emoji">🪙</div>
-        <div class="stat-val" id="u-coins" style="color:#ffd166">—</div>
-        <div class="stat-lbl">Монет</div>
-      </div>
-      <div class="stat">
-        <div class="stat-glow" style="background:#72efb0"></div>
-        <div class="stat-emoji">⭐</div>
-        <div class="stat-val" id="u-exp" style="color:#72efb0">—</div>
-        <div class="stat-lbl">Опыт</div>
-      </div>
-    </div>
-
-    <!-- Checkin -->
-    <div class="checkin fade-in">
-      <div class="section-title">⚡ Зарядка на этой неделе</div>
-      <div class="week" id="week"></div>
-    </div>
-
-    <!-- Month theme -->
-    <div class="month-card fade-in">
-      <div class="section-title">🌸 Тема месяца</div>
-      <div class="month-theme" id="month-theme">Март — Ноги и ягодицы</div>
-      <div class="month-desc" id="month-desc">В этом месяце фокус на ноги, ягодицы и лимфодренаж. Проработаем зону максимально эффективно — без вреда для суставов 💪</div>
-    </div>
-
-    <!-- Schedule -->
-    <div class="schedule-card fade-in">
-      <div class="section-title">📅 Расписание</div>
-      <div class="sched-item">
-        <span class="sched-day">ВТ ЧТ СБ</span>
-        <div class="sched-info">
-          <div class="sched-name">Силовая тренировка</div>
-          <div class="sched-time">⏰ 07:00 — 30 минут</div>
-          <a class="sched-zoom" href="#" onclick="alert('Ссылка Zoom появится за 15 мин до начала')">📹 Zoom</a>
+        <div class="stat">
+          <div class="stat-glow" style="background:#72efb0"></div>
+          <div class="stat-emoji">⭐</div>
+          <div class="stat-val" id="u-exp" style="color:#72efb0">—</div>
+          <div class="stat-lbl">Опыт</div>
         </div>
       </div>
-      <div class="sched-item">
-        <span class="sched-day">ПН–ПТ</span>
-        <div class="sched-info">
-          <div class="sched-name">Утренняя зарядка</div>
-          <div class="sched-time">⏰ 07:00 — 15 минут</div>
-          <a class="sched-zoom" href="#" onclick="alert('Ссылка Zoom появится за 15 мин до начала')">📹 Zoom</a>
-        </div>
+
+      <div class="info-card fi" id="info-block" style="display:none">
+        <div class="section-title">📋 Моя статистика</div>
+        <div class="row"><span class="row-lbl">📅 В клубе с</span><span class="row-val" id="u-join">—</span></div>
+        <div class="row"><span class="row-lbl">⏳ Месяцев в спорте</span><span class="row-val" id="u-months">—</span></div>
+        <div class="row"><span class="row-lbl">🏋️ Всего тренировок</span><span class="row-val" id="u-total">—</span></div>
+        <div class="row"><span class="row-lbl">🔄 Текущий счётчик</span><span class="row-val" id="u-current">—</span></div>
       </div>
-    </div>
 
-    <!-- Stats info -->
-    <div class="info-card fade-in">
-      <div class="section-title">📋 Моя статистика</div>
-      <div class="row"><span class="row-lbl">📅 В клубе с</span><span class="row-val" id="u-join">—</span></div>
-      <div class="row"><span class="row-lbl">⏳ Месяцев в спорте</span><span class="row-val" id="u-months">—</span></div>
-      <div class="row"><span class="row-lbl">🏋️ Всего тренировок</span><span class="row-val" id="u-total">—</span></div>
-      <div class="row"><span class="row-lbl">🔄 Текущий счётчик</span><span class="row-val" id="u-current">—</span></div>
-    </div>
+      <div class="actions fi" id="actions-block" style="display:none">
+        <a class="act" href="#"><div class="act-icon" style="background:rgba(255,126,179,0.1)">🎥</div><div class="act-lbl">Библиотека тренировок</div></a>
+        <a class="act" href="#" onclick="checkIn(); return false;"><div class="act-icon" style="background:rgba(114,239,176,0.1)">✅</div><div class="act-lbl">Отметить зарядку</div></a>
+        <a class="act" href="#"><div class="act-icon" style="background:rgba(255,209,102,0.1)">🪙</div><div class="act-lbl">Про монеты</div></a>
+        <a class="act" href="#"><div class="act-icon" style="background:rgba(212,160,255,0.1)">📸</div><div class="act-lbl">Фото прогресса</div></a>
+      </div>
 
-    <!-- Actions -->
-    <div class="actions fade-in">
-      <a class="act" href="#">
-        <div class="act-icon" style="background:rgba(255,126,179,0.1)">🎥</div>
-        <div class="act-lbl">Библиотека тренировок</div>
-      </a>
-      <a class="act" href="#" onclick="checkIn(); return false;">
-        <div class="act-icon" style="background:rgba(114,239,176,0.1)">✅</div>
-        <div class="act-lbl">Отметить зарядку</div>
-      </a>
-      <a class="act" href="#">
-        <div class="act-icon" style="background:rgba(255,209,102,0.1)">🪙</div>
-        <div class="act-lbl">Про монеты</div>
-      </a>
-      <a class="act" href="#">
-        <div class="act-icon" style="background:rgba(212,160,255,0.1)">📸</div>
-        <div class="act-lbl">Фото прогресса</div>
-      </a>
     </div>
 
   </div>
@@ -482,137 +246,161 @@
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bnav">
-  <div class="nav-it active" onclick="setTab(this)"><span class="nav-em">🏠</span><span>Главная</span></div>
-  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">🎥</span><span>Тренировки</span></div>
-  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">✅</span><span>Зарядка</span></div>
-  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">👤</span><span>Профиль</span></div>
+  <div class="nav-it active"><span class="nav-em">🏠</span><span>Главная</span></div>
+  <div class="nav-it"><span class="nav-em">🎥</span><span>Тренировки</span></div>
+  <div class="nav-it"><span class="nav-em">✅</span><span>Зарядка</span></div>
+  <div class="nav-it"><span class="nav-em">👤</span><span>Профиль</span></div>
 </nav>
 
 <script>
-// ── MOCK DATA (потом заменим на Apps Script API) ──
-const MOCK = {
-  name: "Алёна",
-  level: 88,
-  levelName: "Прекрасная",
-  coins: 3210,
-  exp: 427,
-  joinDate: "26.01.2024",
-  months: 26,
-  totalTrainings: 157,
-  currentTrainings: 130,
-  weekCheckins: [true, true, false, true, false, false, false] // Пн-Вс
-};
+// ══ CONFIG ══
+// Заполним после создания Google Apps Script
+const APPS_SCRIPT_URL = '';
 
-const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
-const today = new Date().getDay();
-const todayIdx = today === 0 ? 6 : today - 1;
+// ══ TELEGRAM AUTH CALLBACK ══
+// Telegram вызывает эту функцию автоматически после входа
+function onTelegramAuth(user) {
+  console.log('TG Auth:', user);
+  sessionStorage.setItem('tg_user', JSON.stringify(user));
+  setLoader('Загружаем профиль...');
 
-// Месячные темы
-const THEMES = {
-  1: ['Январь — Мягкий перезапуск', 'Начинаем нежно и осознанно. Возвращаем тело в ритм без стресса.'],
-  2: ['Февраль — Кардио и лимфодренаж', 'Разгоняем лимфу, прокачиваем сердце, убираем отёки.'],
-  3: ['Март — Ноги и ягодицы', 'Фокус на ноги, ягодицы и лимфодренаж без вреда для суставов 💪'],
-  4: ['Апрель — Тазовое дно', 'Глубокие мышцы которые меняют всё — осанку, живот и энергию.'],
-  5: ['Май — Руки и плечевой пояс', 'Красивые руки, открытая грудь и правильная осанка.'],
-  6: ['Июнь — Всё тело + кардио', 'Комплексная работа — полная проработка за 30 минут.'],
-  7: ['Июль — Растяжка и гибкость', 'Раскрываем тело, убираем зажимы, дышим глубоко.'],
-  8: ['Август — Баланс и координация', 'Тренируем нервную систему и умение управлять телом.'],
-  9: ['Сентябрь — Пресс и кор', 'Глубокий кор без вреда для поясницы — настоящий центр силы.'],
-  10: ['Октябрь — Спина и поясница', 'Убираем боли, выправляем осанку, включаем спину.'],
-  11: ['Ноябрь — Ноги и ягодицы 2.0', 'Более сложный вариант — тело уже готово к серьёзной работе.'],
-  12: ['Декабрь — Поддержание и итоги', 'Сохраняем результат, подводим итоги, хвалим себя! 🎉']
-};
-
-function fillDash(user) {
-  document.getElementById('u-name').textContent = user.name;
-  document.getElementById('u-level').textContent = `Уровень ${user.level} — ${user.levelName}`;
-  document.getElementById('u-coins').textContent = user.coins.toLocaleString('ru');
-  document.getElementById('u-exp').textContent = user.exp;
-  document.getElementById('u-join').textContent = user.joinDate;
-  document.getElementById('u-months').textContent = user.months;
-  document.getElementById('u-total').textContent = user.totalTrainings;
-  document.getElementById('u-current').textContent = user.currentTrainings;
-  document.getElementById('u-trains').textContent = `${user.currentTrainings} тренировок`;
-
-  // Progress bar
-  const pct = ((user.currentTrainings % 10) / 10) * 100;
-  setTimeout(() => document.getElementById('u-bar').style.width = pct + '%', 300);
-
-  // Week
-  const week = document.getElementById('week');
-  week.innerHTML = '';
-  DAYS.forEach((d, i) => {
-    const done = user.weekCheckins[i];
-    const isToday = i === todayIdx;
-    const el = document.createElement('div');
-    el.className = 'day' + (done ? ' done' : '') + (isToday && !done ? ' today' : '');
-    el.innerHTML = `<span>${d}</span><span class="day-ch">${done ? '✓' : (isToday ? '•' : '')}</span>`;
-    week.appendChild(el);
-  });
-
-  // Month theme
-  const m = new Date().getMonth() + 1;
-  const theme = THEMES[m] || THEMES[3];
-  document.getElementById('month-theme').textContent = theme[0];
-  document.getElementById('month-desc').textContent = theme[1];
+  if (APPS_SCRIPT_URL) {
+    loadFromSheet(user);
+  } else {
+    // Apps Script ещё не подключён — показываем кабинет с данными из TG
+    setTimeout(() => renderDash(user, null), 700);
+  }
 }
 
-function showDash() {
+// ══ LOAD FROM GOOGLE SHEETS ══
+async function loadFromSheet(tgUser) {
+  try {
+    const r = await fetch(`${APPS_SCRIPT_URL}?tg_id=${tgUser.id}`);
+    const data = await r.json();
+    renderDash(tgUser, data);
+  } catch(e) {
+    console.error(e);
+    renderDash(tgUser, null);
+  }
+}
+
+// ══ RENDER DASHBOARD ══
+function renderDash(tgUser, data) {
+  hideLoader();
+
+  // Имя и фото из Telegram
+  const name = [tgUser.first_name, tgUser.last_name].filter(Boolean).join(' ') || 'Участница';
+  document.getElementById('u-name').textContent = name;
+  document.getElementById('u-tg').textContent = tgUser.username ? `@${tgUser.username}` : `ID: ${tgUser.id}`;
+
+  if (tgUser.photo_url) {
+    document.getElementById('u-avatar').innerHTML = `<img src="${tgUser.photo_url}" alt="">`;
+  } else {
+    document.getElementById('u-avatar').textContent = name[0].toUpperCase();
+  }
+
+  // Статус подписки
+  // data === null → Apps Script не подключён ещё, показываем контент
+  // data.hasSubscription === true → подписка активна
+  // data.hasSubscription === false → нет подписки
+  const hasSub = data === null ? true : (data.hasSubscription === true);
+
+  const badge = document.getElementById('u-sub-badge');
+  if (hasSub) {
+    badge.className = 'sub-badge active';
+    badge.textContent = '✅ Подписка активна';
+    if (data && data.subExpires) {
+      document.getElementById('u-expires').textContent = `действует до ${data.subExpires}`;
+    }
+    // Показываем блоки
+    ['stats-block','info-block','actions-block'].forEach(id => {
+      document.getElementById(id).style.display = id === 'stats-block' ? 'grid' : 'flex';
+      if (id === 'info-block') document.getElementById(id).style.display = 'block';
+      if (id === 'actions-block') document.getElementById(id).style.display = 'grid';
+    });
+    document.getElementById('no-sub-card').style.display = 'none';
+
+    // Данные из таблицы
+    if (data) {
+      setText('u-coins', (data.coins||0).toLocaleString('ru'));
+      setText('u-exp', data.exp || '—');
+      setText('u-join', data.joinDate || '—');
+      setText('u-months', data.months || '—');
+      setText('u-total', data.totalTrainings || '—');
+      setText('u-current', data.currentTrainings || '—');
+    } else {
+      // Заглушка пока нет Apps Script
+      ['u-coins','u-exp','u-join','u-months','u-total','u-current'].forEach(id => setText(id, '—'));
+    }
+  } else {
+    badge.className = 'sub-badge inactive';
+    badge.textContent = '⏳ Нет подписки';
+    document.getElementById('no-sub-card').style.display = 'block';
+  }
+
+  // Показываем кабинет
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('dash-screen').classList.add('active');
   document.getElementById('bnav').style.display = 'flex';
-  fillDash(MOCK);
 }
 
+// ══ LOGOUT ══
 function doLogout() {
-  sessionStorage.removeItem('tg_auth');
+  sessionStorage.removeItem('tg_user');
   document.getElementById('dash-screen').classList.remove('active');
   document.getElementById('bnav').style.display = 'none';
   document.getElementById('login-screen').classList.add('active');
 }
 
-function setTab(el) {
-  document.querySelectorAll('.nav-it').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
+// ══ CHECK IN ══
+function checkIn() {
+  showToast('⚡ Зарядка отмечена!');
 }
 
-function checkIn() {
-  MOCK.weekCheckins[todayIdx] = true;
-  fillDash(MOCK);
+// ══ HELPERS ══
+function setText(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
+
+function setLoader(text) {
+  document.getElementById('loader-text').textContent = text;
+  const l = document.getElementById('loader');
+  l.style.opacity = '1'; l.style.display = 'flex';
+}
+
+function hideLoader() {
+  const l = document.getElementById('loader');
+  l.style.opacity = '0';
+  setTimeout(() => l.style.display = 'none', 400);
+}
+
+function showToast(msg) {
   const t = document.createElement('div');
-  t.style.cssText = 'position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:rgba(114,239,176,0.2);border:1px solid rgba(114,239,176,0.4);color:#72efb0;padding:12px 24px;border-radius:20px;font-weight:800;font-size:14px;z-index:400;animation:slideUp 0.3s ease';
-  t.textContent = '⚡ Зарядка отмечена!';
+  t.className = 'toast'; t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2500);
 }
 
-// ── Telegram Login Modal (симуляция) ──
-function openTgModal() {
-  const bg = document.createElement('div');
-  bg.className = 'modal-bg';
-  bg.innerHTML = `
-    <div class="modal">
-      <div class="modal-icon">📱</div>
-      <div class="modal-title">Войти через Telegram</div>
-      <div class="modal-text">Откроется окно Telegram — просто подтверди вход. Никаких паролей!</div>
-      <div class="modal-btns">
-        <button class="modal-cancel" onclick="this.closest('.modal-bg').remove()">Отмена</button>
-        <button class="modal-ok" onclick="this.closest('.modal-bg').remove(); sessionStorage.setItem('tg_auth','1'); showDash()">Войти ✓</button>
-      </div>
-    </div>`;
-  document.body.appendChild(bg);
-}
-
-// ── Init ──
+// ══ INIT ══
 window.addEventListener('load', () => {
-  const loader = document.getElementById('loader');
+  const l = document.getElementById('loader');
   setTimeout(() => {
-    loader.style.opacity = '0';
+    l.style.opacity = '0';
     setTimeout(() => {
-      loader.style.display = 'none';
-      if (sessionStorage.getItem('tg_auth')) showDash();
+      l.style.display = 'none';
+      const saved = sessionStorage.getItem('tg_user');
+      if (saved) {
+        try {
+          const user = JSON.parse(saved);
+          if (APPS_SCRIPT_URL) { setLoader('Загружаем профиль...'); loadFromSheet(user); }
+          else renderDash(user, null);
+        } catch(e) {
+          sessionStorage.removeItem('tg_user');
+          document.getElementById('login-screen').classList.add('active');
+        }
+      } else {
+        document.getElementById('login-screen').classList.add('active');
+      }
     }, 400);
-  }, 700);
+  }, 500);
 });
 </script>
 </body>
