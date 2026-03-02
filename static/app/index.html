@@ -321,14 +321,14 @@ function renderDash(tgUser, data) {
     document.getElementById('no-sub-card').style.display = 'none';
 
     // Данные из таблицы
-    if (data) {
-      setText('u-coins', (data.coins||0).toLocaleString('ru'));
-      setText('u-exp', data.exp || '—');
-      setText('u-join', data.joinDate || '—');
-      setText('u-months', data.months || '—');
-      setText('u-total', data.totalTrainings || '—');
-      setText('u-current', data.currentTrainings || '—');
-    } else {
+if (data) {
+  setText('u-coins', (data.coins||0).toLocaleString('ru'));
+  setText('u-exp', data.exp || '—');
+  setText('u-join', data.joinDate || '—');
+  setText('u-months', data.months || '—');
+  setText('u-total', data.totalTrainings > 0 ? data.totalTrainings : data.trainings || '—');
+  setText('u-current', data.trainings || '—');
+} else {
       // Заглушка пока нет Apps Script
       ['u-coins','u-exp','u-join','u-months','u-total','u-current'].forEach(id => setText(id, '—'));
     }
