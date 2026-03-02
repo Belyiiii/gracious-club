@@ -2,25 +2,26 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Фитнес Клуб — Личный кабинет</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>30ForMe — Личный кабинет</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0d1a;
-    --card: #15152a;
-    --card2: #1c1c35;
-    --accent: #ff4d8d;
-    --accent2: #ff8c42;
-    --accent3: #a855f7;
-    --gold: #ffd700;
-    --text: #ffffff;
-    --muted: #9090b0;
-    --success: #4ade80;
+    --bg: #0e0b14;
+    --card: #16112299;
+    --card-solid: #161122;
+    --border: rgba(255,255,255,0.07);
+    --accent: #d4a0ff;
+    --accent2: #ff7eb3;
+    --accent3: #ffd166;
+    --gold: #ffd166;
+    --green: #72efb0;
+    --text: #f5f0ff;
+    --muted: #8878a8;
     --radius: 20px;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   body {
     font-family: 'Nunito', sans-serif;
@@ -30,812 +31,589 @@
     overflow-x: hidden;
   }
 
-  /* ─── BACKGROUND ─── */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(255,77,141,0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 50% at 10% 80%, rgba(168,85,247,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(255,140,66,0.06) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+      radial-gradient(ellipse 70% 50% at 90% -10%, rgba(212,160,255,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at -10% 80%, rgba(255,126,179,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 50% 50%, rgba(255,209,102,0.04) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
   }
 
   .page { position: relative; z-index: 1; }
 
-  /* ─── LOGIN PAGE ─── */
-  #login-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    text-align: center;
-  }
+  /* ── SCREENS ── */
+  .screen { display: none; min-height: 100vh; }
+  .screen.active { display: block; }
+  #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
 
-  .login-logo {
-    font-size: 72px;
+  /* ── LOGIN ── */
+  .login-top { text-align: center; margin-bottom: 40px; }
+
+  .logo-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
     margin-bottom: 16px;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
   }
 
   .login-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 8vw, 42px);
-    font-weight: 900;
-    background: linear-gradient(135deg, #ff4d8d, #ff8c42, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 10vw, 52px);
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(135deg, #d4a0ff 0%, #ff7eb3 50%, #ffd166 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     line-height: 1.1;
+    margin-bottom: 10px;
   }
 
-  .login-subtitle {
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 48px;
-    font-weight: 600;
-  }
+  .login-sub { color: var(--muted); font-size: 15px; font-weight: 600; }
 
   .login-card {
     background: var(--card);
-    border: 1px solid rgba(255,77,141,0.2);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
     border-radius: 28px;
-    padding: 40px 32px;
-    width: 100%;
-    max-width: 360px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,77,141,0.08);
+    padding: 36px 28px;
+    width: 100%; max-width: 360px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
   }
 
-  .login-card p {
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 28px;
-    line-height: 1.6;
-  }
+  .login-desc { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 28px; text-align: center; }
 
   .tg-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: 100%;
-    padding: 16px 24px;
-    background: linear-gradient(135deg, #2AABEE, #229ED9);
-    color: white;
-    border: none;
-    border-radius: 16px;
-    font-size: 17px;
-    font-weight: 800;
-    font-family: 'Nunito', sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 8px 24px rgba(42,171,238,0.35);
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    width: 100%; padding: 17px 24px;
+    background: linear-gradient(135deg, #2aabee, #1a94d4);
+    color: white; border: none; border-radius: 16px;
+    font-size: 17px; font-weight: 800; font-family: 'Nunito', sans-serif;
+    cursor: pointer; transition: all 0.25s;
+    box-shadow: 0 10px 30px rgba(42,171,238,0.3);
+  }
+  .tg-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(42,171,238,0.45); }
+  .tg-btn:active { transform: translateY(0); }
+  .tg-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  .login-features { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .feat {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    font-size: 13px; font-weight: 700; color: var(--muted);
+  }
+  .feat-icon { font-size: 20px; flex-shrink: 0; }
+
+  /* ── DASHBOARD ── */
+  #dash-screen { padding-bottom: 90px; }
+
+  .top-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 20px 0; max-width: 480px; margin: 0 auto;
   }
 
-  .tg-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(42,171,238,0.5);
+  .brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700; font-style: italic;
+    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
 
-  .tg-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
-
-  .login-features {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 32px;
-    text-align: left;
-  }
-
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .feature-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-
-  /* ─── DASHBOARD ─── */
-  #dashboard-page {
-    display: none;
-    min-height: 100vh;
-    padding-bottom: 100px;
-  }
-
-  /* Header */
-  .dash-header {
-    padding: 20px 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .dash-brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #ff4d8d, #ff8c42);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .dash-logout {
-    background: rgba(255,255,255,0.06);
-    border: none;
-    color: var(--muted);
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
+  .logout-btn {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    color: var(--muted); padding: 8px 14px; border-radius: 10px;
+    font-size: 12px; cursor: pointer; font-family: 'Nunito', sans-serif; font-weight: 700;
     transition: all 0.2s;
   }
-  .dash-logout:hover { background: rgba(255,77,141,0.15); color: var(--accent); }
+  .logout-btn:hover { background: rgba(255,126,179,0.1); color: var(--accent2); border-color: rgba(255,126,179,0.3); }
 
-  .dash-content {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  .content { max-width: 480px; margin: 0 auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 
-  /* Hero card */
-  .hero-card {
-    background: linear-gradient(135deg, #1c1535, #2d1b4e);
-    border: 1px solid rgba(168,85,247,0.3);
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #1a1028, #2a1040);
+    border: 1px solid rgba(212,160,255,0.2);
     border-radius: var(--radius);
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative;
-    overflow: hidden;
+    padding: 22px;
+    display: flex; gap: 16px; align-items: center;
+    position: relative; overflow: hidden;
   }
-
-  .hero-card::before {
-    content: '';
-    position: absolute;
-    top: -30px;
-    right: -30px;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(168,85,247,0.3), transparent 70%);
-    pointer-events: none;
+  .hero::after {
+    content: '✨';
+    position: absolute; top: 16px; right: 20px;
+    font-size: 28px; opacity: 0.4;
   }
 
   .avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff4d8d, #a855f7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    flex-shrink: 0;
-    border: 3px solid rgba(255,255,255,0.15);
-    box-shadow: 0 0 20px rgba(168,85,247,0.4);
+    width: 68px; height: 68px; border-radius: 50%;
+    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; flex-shrink: 0;
+    border: 2px solid rgba(212,160,255,0.3);
+    box-shadow: 0 0 24px rgba(212,160,255,0.3);
   }
 
-  .hero-info { flex: 1; }
+  .hero-info { flex: 1; min-width: 0; }
+  .hero-name { font-size: 19px; font-weight: 900; margin-bottom: 6px; }
 
-  .hero-name {
-    font-size: 20px;
-    font-weight: 900;
-    margin-bottom: 4px;
-  }
-
-  .level-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, rgba(255,77,141,0.2), rgba(168,85,247,0.2));
-    border: 1px solid rgba(255,77,141,0.4);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 13px;
-    font-weight: 800;
-    color: #ff9dc8;
+  .lvl-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: linear-gradient(135deg, rgba(212,160,255,0.15), rgba(255,126,179,0.15));
+    border: 1px solid rgba(212,160,255,0.3);
+    border-radius: 20px; padding: 3px 10px;
+    font-size: 12px; font-weight: 800; color: #e0bcff;
     margin-bottom: 8px;
   }
 
-  .level-bar-wrap {
-    background: rgba(255,255,255,0.08);
-    border-radius: 10px;
-    height: 6px;
-    overflow: hidden;
-  }
+  .prog-wrap { background: rgba(255,255,255,0.07); border-radius: 10px; height: 5px; overflow: hidden; }
+  .prog-bar { height: 100%; background: linear-gradient(90deg, #d4a0ff, #ff7eb3); border-radius: 10px; transition: width 1s ease; }
+  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-weight: 700; margin-top: 4px; }
 
-  .level-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #ff4d8d, #a855f7);
-    border-radius: 10px;
-    transition: width 1s ease;
-  }
+  /* ── STATS ── */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-  /* Stats row */
-  .stats-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .stat-card {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: var(--radius);
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-    overflow: hidden;
+  .stat {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px;
+    position: relative; overflow: hidden;
     transition: transform 0.2s;
   }
+  .stat:hover { transform: translateY(-2px); }
+  .stat-glow { position: absolute; bottom: -20px; right: -20px; width: 70px; height: 70px; border-radius: 50%; opacity: 0.12; }
+  .stat-emoji { font-size: 22px; margin-bottom: 8px; }
+  .stat-val { font-size: 26px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+  .stat-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
 
-  .stat-card:hover { transform: translateY(-2px); }
-
-  .stat-card::before {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    opacity: 0.15;
+  /* ── CHECKIN ── */
+  .checkin {
+    background: linear-gradient(135deg, #101a14, #121e18);
+    border: 1px solid rgba(114,239,176,0.2);
+    border-radius: var(--radius); padding: 20px;
   }
-
-  .stat-card.coins::before { background: var(--gold); }
-  .stat-card.exp::before { background: var(--success); }
-
-  .stat-icon { font-size: 24px; }
-
-  .stat-value {
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 1;
+  .section-title {
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
   }
+  .checkin .section-title { color: #72efb0; }
 
-  .stat-card.coins .stat-value { color: var(--gold); }
-  .stat-card.exp .stat-value { color: var(--success); }
-
-  .stat-label {
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .day {
+    aspect-ratio: 1; border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px; font-size: 9px; font-weight: 800;
+    color: var(--muted); background: rgba(255,255,255,0.04);
   }
+  .day.done { background: linear-gradient(135deg, #72efb0, #4ade80); color: #052e16; box-shadow: 0 4px 12px rgba(114,239,176,0.25); }
+  .day.today { border: 1.5px solid rgba(114,239,176,0.5); color: #72efb0; }
+  .day-ch { font-size: 13px; }
 
-  /* Info cards */
+  /* ── INFO CARD ── */
   .info-card {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: var(--radius);
-    padding: 20px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
   }
-
-  .info-card-title {
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--muted);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+  .info-card .section-title { color: var(--accent); }
+  .row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
     font-size: 14px;
   }
+  .row:last-child { border-bottom: none; }
+  .row-lbl { color: var(--muted); font-weight: 600; }
+  .row-val { font-weight: 800; }
 
-  .info-row:last-child { border-bottom: none; }
-
-  .info-row-label { color: var(--muted); font-weight: 600; }
-  .info-row-value { font-weight: 800; }
-
-  /* Checkin */
-  .checkin-card {
-    background: linear-gradient(135deg, #1a2818, #1e3020);
-    border: 1px solid rgba(74,222,128,0.25);
-    border-radius: var(--radius);
-    padding: 20px;
+  /* ── SCHEDULE ── */
+  .schedule-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
   }
-
-  .checkin-title {
+  .schedule-card .section-title { color: var(--accent3); }
+  .sched-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
     font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #6ee7a0;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  }
+  .sched-item:last-child { border-bottom: none; }
+  .sched-day {
+    background: rgba(255,209,102,0.1); border: 1px solid rgba(255,209,102,0.2);
+    color: var(--gold); border-radius: 8px; padding: 4px 8px;
+    font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0;
+  }
+  .sched-info { flex: 1; }
+  .sched-name { font-weight: 800; margin-bottom: 2px; }
+  .sched-time { color: var(--muted); font-size: 12px; font-weight: 600; }
+  .sched-zoom {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(42,171,238,0.12); color: #7ac8f5;
+    border: 1px solid rgba(42,171,238,0.2);
+    border-radius: 8px; padding: 4px 10px;
+    font-size: 11px; font-weight: 800; text-decoration: none; margin-top: 5px;
   }
 
-  .week-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 6px;
+  /* ── ACTIONS ── */
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .act {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; color: var(--text);
   }
-
-  .day-dot {
-    aspect-ratio: 1;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--muted);
-    background: rgba(255,255,255,0.05);
-    flex-direction: column;
-    gap: 2px;
+  .act:hover { transform: translateY(-3px); border-color: rgba(212,160,255,0.3); background: rgba(212,160,255,0.06); }
+  .act-icon {
+    width: 50px; height: 50px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
   }
+  .act-lbl { font-size: 12px; font-weight: 800; text-align: center; line-height: 1.3; }
 
-  .day-dot.done {
-    background: linear-gradient(135deg, #4ade80, #22c55e);
-    color: #052e16;
-    box-shadow: 0 4px 12px rgba(74,222,128,0.3);
-  }
-
-  .day-dot.today {
-    border: 2px solid rgba(74,222,128,0.6);
-    color: #4ade80;
-  }
-
-  .day-name { font-size: 9px; opacity: 0.7; }
-  .day-check { font-size: 14px; }
-
-  /* Action buttons */
-  .actions-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .action-btn {
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: var(--radius);
-    padding: 18px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Nunito', sans-serif;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .action-btn:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255,77,141,0.4);
-    background: rgba(255,77,141,0.08);
-  }
-
-  .action-icon {
-    font-size: 28px;
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .action-label {
-    font-size: 13px;
-    font-weight: 800;
-    text-align: center;
-    line-height: 1.3;
-  }
-
-  /* Bottom nav */
+  /* ── BOTTOM NAV ── */
   .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(13,13,26,0.95);
-    backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    display: none;
-    justify-content: space-around;
-    padding: 12px 0 20px;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(14,11,20,0.95); backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    display: none; justify-content: space-around;
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
     z-index: 100;
   }
+  .nav-it {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    color: var(--muted); font-size: 10px; font-weight: 800;
+    padding: 6px 14px; border-radius: 12px; cursor: pointer; transition: all 0.2s;
+  }
+  .nav-it.active { color: var(--accent); }
+  .nav-em { font-size: 21px; }
 
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 16px;
-    border-radius: 12px;
+  /* ── ANIMATIONS ── */
+  @keyframes slideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .fade-in { opacity: 0; animation: slideUp 0.5s ease forwards; }
+  .fade-in:nth-child(1) { animation-delay:0.00s; }
+  .fade-in:nth-child(2) { animation-delay:0.07s; }
+  .fade-in:nth-child(3) { animation-delay:0.14s; }
+  .fade-in:nth-child(4) { animation-delay:0.21s; }
+  .fade-in:nth-child(5) { animation-delay:0.28s; }
+  .fade-in:nth-child(6) { animation-delay:0.35s; }
+  .fade-in:nth-child(7) { animation-delay:0.42s; }
+
+  /* ── LOADER ── */
+  .loader {
+    position: fixed; inset: 0; background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; transition: opacity 0.4s;
+  }
+  .spin { width: 44px; height: 44px; border: 3px solid rgba(212,160,255,0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+  /* ── MODAL ── */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 300; padding: 20px;
+  }
+  .modal {
+    background: #1a1128; border: 1px solid rgba(212,160,255,0.2);
+    border-radius: 24px; padding: 32px 28px;
+    max-width: 320px; width: 100%; text-align: center;
+  }
+  .modal-icon { font-size: 52px; margin-bottom: 16px; }
+  .modal-title { font-size: 19px; font-weight: 900; margin-bottom: 8px; }
+  .modal-text { color: var(--muted); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  .modal-btns { display: flex; gap: 10px; }
+  .modal-cancel {
+    flex: 1; padding: 13px; border-radius: 12px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--muted); font-family: 'Nunito', sans-serif; font-size: 14px; cursor: pointer;
+  }
+  .modal-ok {
+    flex: 1; padding: 13px; border-radius: 12px; border: none;
+    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
+    color: white; font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800; cursor: pointer;
   }
 
-  .nav-item.active { color: var(--accent); }
-  .nav-item:hover { color: var(--accent); }
-  .nav-emoji { font-size: 22px; }
-
-  /* Animations */
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* ── MONTH THEME ── */
+  .month-card {
+    background: linear-gradient(135deg, #1a1228, #221535);
+    border: 1px solid rgba(255,126,179,0.2);
+    border-radius: var(--radius); padding: 20px;
   }
-
-  .animate-in {
-    animation: slideUp 0.5s ease forwards;
-  }
-
-  .animate-in:nth-child(1) { animation-delay: 0.0s; }
-  .animate-in:nth-child(2) { animation-delay: 0.08s; }
-  .animate-in:nth-child(3) { animation-delay: 0.16s; }
-  .animate-in:nth-child(4) { animation-delay: 0.24s; }
-  .animate-in:nth-child(5) { animation-delay: 0.32s; }
-  .animate-in:nth-child(6) { animation-delay: 0.40s; }
-  .animate-in:nth-child(7) { animation-delay: 0.48s; }
-
-  .loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    transition: opacity 0.4s;
-  }
-
-  .loading-spinner {
-    width: 48px;
-    height: 48px;
-    border: 4px solid rgba(255,77,141,0.15);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  /* Progress bar numbers */
-  .train-progress {
-    margin-top: 8px;
-  }
-
-  .train-bar-wrap {
-    background: rgba(255,255,255,0.06);
-    border-radius: 10px;
-    height: 8px;
-    overflow: hidden;
-    margin-top: 6px;
-  }
-
-  .train-bar {
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #ff4d8d, #ff8c42);
-    transition: width 1.2s ease;
-  }
-
-  .train-numbers {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 700;
-    margin-top: 4px;
-  }
-
+  .month-card .section-title { color: var(--accent2); }
+  .month-theme { font-size: 22px; font-weight: 900; margin-bottom: 6px; }
+  .month-desc { color: var(--muted); font-size: 13px; line-height: 1.6; }
 </style>
 </head>
 <body class="page">
 
-<!-- LOADING -->
-<div class="loading-overlay" id="loader">
-  <div class="loading-spinner"></div>
-</div>
+<!-- LOADER -->
+<div class="loader" id="loader"><div class="spin"></div></div>
 
-<!-- ── LOGIN PAGE ── -->
-<div id="login-page" class="page" style="display:none">
-  <div class="login-logo">💪</div>
-  <h1 class="login-title">Фитнес Клуб</h1>
-  <p class="login-subtitle">Тренируйся. Расти. Побеждай.</p>
+<!-- ════ LOGIN ════ -->
+<div class="screen active page" id="login-screen">
+  <div class="login-top">
+    <div class="logo-mark">Online клуб</div>
+    <div class="login-title">30ForMe</div>
+    <div class="login-sub">Грациозно. Мягко. Регулярно. 💜</div>
+  </div>
 
   <div class="login-card">
-    <p>Войди через Telegram — твой профиль, прогресс и тренировки в одном месте 🚀</p>
+    <p class="login-desc">Твой личный кабинет — расписание, монеты, прогресс и библиотека 300+ тренировок 🎯</p>
 
-    <button class="tg-btn" onclick="doLogin()">
-      <svg viewBox="0 0 24 24" fill="white">
-        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.947l-2.963-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.991.612z"/>
-      </svg>
+    <button class="tg-btn" onclick="openTgModal()">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.16 13.947l-2.963-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.991.612z"/></svg>
       Войти через Telegram
     </button>
 
     <div class="login-features">
-      <div class="feature-item">
-        <div class="feature-icon" style="background:rgba(255,215,0,0.1)">🏆</div>
-        <span>Твои монеты и уровень прогресса</span>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:rgba(74,222,128,0.1)">✅</div>
-        <span>Отметка зарядки и чекины</span>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon" style="background:rgba(255,77,141,0.1)">🎥</div>
-        <span>Библиотека всех тренировок</span>
-      </div>
+      <div class="feat"><span class="feat-icon">🏆</span> Уровень, монеты и твой прогресс</div>
+      <div class="feat"><span class="feat-icon">⚡</span> Зарядки — отмечай каждое утро</div>
+      <div class="feat"><span class="feat-icon">🎥</span> 300+ тренировок всегда под рукой</div>
+      <div class="feat"><span class="feat-icon">📅</span> Расписание Zoom-эфиров</div>
     </div>
   </div>
 </div>
 
-<!-- ── DASHBOARD PAGE ── -->
-<div id="dashboard-page" class="page">
-  <div class="dash-header">
-    <span class="dash-brand">💪 Клуб</span>
-    <button class="dash-logout" onclick="doLogout()">Выйти</button>
+<!-- ════ DASHBOARD ════ -->
+<div class="screen page" id="dash-screen">
+  <div class="top-bar">
+    <span class="brand">30ForMe</span>
+    <button class="logout-btn" onclick="doLogout()">Выйти</button>
   </div>
 
-  <div class="dash-content">
+  <div class="content">
 
     <!-- Hero -->
-    <div class="hero-card animate-in">
-      <div class="avatar" id="user-avatar">👩</div>
+    <div class="hero fade-in">
+      <div class="avatar" id="u-avatar">🌸</div>
       <div class="hero-info">
-        <div class="hero-name" id="user-name">Алёна</div>
-        <div class="level-badge">
-          <span>⚡</span>
-          <span id="user-level">Уровень 88 — Прекрасная</span>
+        <div class="hero-name" id="u-name">Загрузка...</div>
+        <div class="lvl-badge">⚡ <span id="u-level">Уровень 1</span></div>
+        <div class="prog-label">
+          <span id="u-trains">0 тренировок</span>
+          <span id="u-next">след. уровень</span>
         </div>
-        <div class="train-progress">
-          <div class="train-numbers">
-            <span id="train-current">130 тренировок</span>
-            <span id="train-next">до ур. 89: +5</span>
-          </div>
-          <div class="train-bar-wrap">
-            <div class="train-bar" id="train-bar" style="width:0%"></div>
-          </div>
-        </div>
+        <div class="prog-wrap"><div class="prog-bar" id="u-bar" style="width:0%"></div></div>
       </div>
     </div>
 
     <!-- Stats -->
-    <div class="stats-row animate-in">
-      <div class="stat-card coins">
-        <div class="stat-icon">🪙</div>
-        <div class="stat-value" id="coins">3210</div>
-        <div class="stat-label">Монет</div>
+    <div class="stats-row fade-in">
+      <div class="stat">
+        <div class="stat-glow" style="background:#ffd166"></div>
+        <div class="stat-emoji">🪙</div>
+        <div class="stat-val" id="u-coins" style="color:#ffd166">—</div>
+        <div class="stat-lbl">Монет</div>
       </div>
-      <div class="stat-card exp">
-        <div class="stat-icon">⭐</div>
-        <div class="stat-value" id="exp">427</div>
-        <div class="stat-label">Опыт</div>
+      <div class="stat">
+        <div class="stat-glow" style="background:#72efb0"></div>
+        <div class="stat-emoji">⭐</div>
+        <div class="stat-val" id="u-exp" style="color:#72efb0">—</div>
+        <div class="stat-lbl">Опыт</div>
       </div>
     </div>
 
-    <!-- Checkin week -->
-    <div class="checkin-card animate-in">
-      <div class="checkin-title">
-        <span>⚡</span> Зарядка на этой неделе
-      </div>
-      <div class="week-days" id="week-days"></div>
+    <!-- Checkin -->
+    <div class="checkin fade-in">
+      <div class="section-title">⚡ Зарядка на этой неделе</div>
+      <div class="week" id="week"></div>
     </div>
 
-    <!-- Info -->
-    <div class="info-card animate-in">
-      <div class="info-card-title">
-        <span>📋</span> Моя статистика
+    <!-- Month theme -->
+    <div class="month-card fade-in">
+      <div class="section-title">🌸 Тема месяца</div>
+      <div class="month-theme" id="month-theme">Март — Ноги и ягодицы</div>
+      <div class="month-desc" id="month-desc">В этом месяце фокус на ноги, ягодицы и лимфодренаж. Проработаем зону максимально эффективно — без вреда для суставов 💪</div>
+    </div>
+
+    <!-- Schedule -->
+    <div class="schedule-card fade-in">
+      <div class="section-title">📅 Расписание</div>
+      <div class="sched-item">
+        <span class="sched-day">ВТ ЧТ СБ</span>
+        <div class="sched-info">
+          <div class="sched-name">Силовая тренировка</div>
+          <div class="sched-time">⏰ 07:00 — 30 минут</div>
+          <a class="sched-zoom" href="#" onclick="alert('Ссылка Zoom появится за 15 мин до начала')">📹 Zoom</a>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-row-label">📅 В клубе с</span>
-        <span class="info-row-value" id="join-date">26.01.2024</span>
+      <div class="sched-item">
+        <span class="sched-day">ПН–ПТ</span>
+        <div class="sched-info">
+          <div class="sched-name">Утренняя зарядка</div>
+          <div class="sched-time">⏰ 07:00 — 15 минут</div>
+          <a class="sched-zoom" href="#" onclick="alert('Ссылка Zoom появится за 15 мин до начала')">📹 Zoom</a>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-row-label">⏳ Месяцев в спорте</span>
-        <span class="info-row-value" id="months">26</span>
-      </div>
-      <div class="info-row">
-        <span class="info-row-label">🏋️ Всего тренировок</span>
-        <span class="info-row-value" id="total-train">157</span>
-      </div>
-      <div class="info-row">
-        <span class="info-row-label">🔄 Текущий счётчик</span>
-        <span class="info-row-value" id="current-train">130</span>
-      </div>
+    </div>
+
+    <!-- Stats info -->
+    <div class="info-card fade-in">
+      <div class="section-title">📋 Моя статистика</div>
+      <div class="row"><span class="row-lbl">📅 В клубе с</span><span class="row-val" id="u-join">—</span></div>
+      <div class="row"><span class="row-lbl">⏳ Месяцев в спорте</span><span class="row-val" id="u-months">—</span></div>
+      <div class="row"><span class="row-lbl">🏋️ Всего тренировок</span><span class="row-val" id="u-total">—</span></div>
+      <div class="row"><span class="row-lbl">🔄 Текущий счётчик</span><span class="row-val" id="u-current">—</span></div>
     </div>
 
     <!-- Actions -->
-    <div class="actions-grid animate-in">
-      <a class="action-btn" href="#">
-        <div class="action-icon" style="background:rgba(255,77,141,0.12)">🎥</div>
-        <div class="action-label">Библиотека тренировок</div>
+    <div class="actions fade-in">
+      <a class="act" href="#">
+        <div class="act-icon" style="background:rgba(255,126,179,0.1)">🎥</div>
+        <div class="act-lbl">Библиотека тренировок</div>
       </a>
-      <a class="action-btn" href="#">
-        <div class="action-icon" style="background:rgba(74,222,128,0.12)">✅</div>
-        <div class="action-label">Отметить зарядку</div>
+      <a class="act" href="#" onclick="checkIn(); return false;">
+        <div class="act-icon" style="background:rgba(114,239,176,0.1)">✅</div>
+        <div class="act-lbl">Отметить зарядку</div>
       </a>
-      <a class="action-btn" href="#">
-        <div class="action-icon" style="background:rgba(255,215,0,0.12)">🪙</div>
-        <div class="action-label">Про монеты</div>
+      <a class="act" href="#">
+        <div class="act-icon" style="background:rgba(255,209,102,0.1)">🪙</div>
+        <div class="act-lbl">Про монеты</div>
       </a>
-      <a class="action-btn" href="#">
-        <div class="action-icon" style="background:rgba(168,85,247,0.12)">📸</div>
-        <div class="action-label">Мои фото</div>
+      <a class="act" href="#">
+        <div class="act-icon" style="background:rgba(212,160,255,0.1)">📸</div>
+        <div class="act-lbl">Фото прогресса</div>
       </a>
     </div>
 
   </div>
 </div>
 
-<!-- Bottom nav (shows when logged in) -->
-<nav class="bottom-nav" id="bottom-nav">
-  <div class="nav-item active">
-    <span class="nav-emoji">🏠</span>
-    <span>Главная</span>
-  </div>
-  <div class="nav-item">
-    <span class="nav-emoji">🎥</span>
-    <span>Тренировки</span>
-  </div>
-  <div class="nav-item">
-    <span class="nav-emoji">✅</span>
-    <span>Зарядка</span>
-  </div>
-  <div class="nav-item">
-    <span class="nav-emoji">👤</span>
-    <span>Профиль</span>
-  </div>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bnav">
+  <div class="nav-it active" onclick="setTab(this)"><span class="nav-em">🏠</span><span>Главная</span></div>
+  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">🎥</span><span>Тренировки</span></div>
+  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">✅</span><span>Зарядка</span></div>
+  <div class="nav-it" onclick="setTab(this)"><span class="nav-em">👤</span><span>Профиль</span></div>
 </nav>
 
 <script>
-  // ─── Mock user data (will come from Google Sheets API) ───
-  const MOCK_USER = {
-    name: "Алёна",
-    level: 88,
-    levelName: "Прекрасная",
-    coins: 3210,
-    exp: 427,
-    joinDate: "26.01.2024",
-    months: 26,
-    totalTrainings: 157,
-    currentTrainings: 130,
-    // Current week checkins (true = done)
-    weekCheckins: [true, true, false, true, true, false, false]
-  };
+// ── MOCK DATA (потом заменим на Apps Script API) ──
+const MOCK = {
+  name: "Алёна",
+  level: 88,
+  levelName: "Прекрасная",
+  coins: 3210,
+  exp: 427,
+  joinDate: "26.01.2024",
+  months: 26,
+  totalTrainings: 157,
+  currentTrainings: 130,
+  weekCheckins: [true, true, false, true, false, false, false] // Пн-Вс
+};
 
-  const DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-  const today = new Date().getDay(); // 0=Sun
-  const todayIdx = today === 0 ? 6 : today - 1; // Mon=0
+const DAYS = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const today = new Date().getDay();
+const todayIdx = today === 0 ? 6 : today - 1;
 
-  function buildWeek() {
-    const wrap = document.getElementById('week-days');
-    wrap.innerHTML = '';
-    DAYS.forEach((d, i) => {
-      const div = document.createElement('div');
-      const done = MOCK_USER.weekCheckins[i];
-      const isToday = i === todayIdx;
-      div.className = 'day-dot' + (done ? ' done' : '') + (isToday && !done ? ' today' : '');
-      div.innerHTML = `<span class="day-name">${d}</span><span class="day-check">${done ? '✓' : (isToday ? '•' : '')}</span>`;
-      wrap.appendChild(div);
-    });
-  }
+// Месячные темы
+const THEMES = {
+  1: ['Январь — Мягкий перезапуск', 'Начинаем нежно и осознанно. Возвращаем тело в ритм без стресса.'],
+  2: ['Февраль — Кардио и лимфодренаж', 'Разгоняем лимфу, прокачиваем сердце, убираем отёки.'],
+  3: ['Март — Ноги и ягодицы', 'Фокус на ноги, ягодицы и лимфодренаж без вреда для суставов 💪'],
+  4: ['Апрель — Тазовое дно', 'Глубокие мышцы которые меняют всё — осанку, живот и энергию.'],
+  5: ['Май — Руки и плечевой пояс', 'Красивые руки, открытая грудь и правильная осанка.'],
+  6: ['Июнь — Всё тело + кардио', 'Комплексная работа — полная проработка за 30 минут.'],
+  7: ['Июль — Растяжка и гибкость', 'Раскрываем тело, убираем зажимы, дышим глубоко.'],
+  8: ['Август — Баланс и координация', 'Тренируем нервную систему и умение управлять телом.'],
+  9: ['Сентябрь — Пресс и кор', 'Глубокий кор без вреда для поясницы — настоящий центр силы.'],
+  10: ['Октябрь — Спина и поясница', 'Убираем боли, выправляем осанку, включаем спину.'],
+  11: ['Ноябрь — Ноги и ягодицы 2.0', 'Более сложный вариант — тело уже готово к серьёзной работе.'],
+  12: ['Декабрь — Поддержание и итоги', 'Сохраняем результат, подводим итоги, хвалим себя! 🎉']
+};
 
-  function fillDashboard(user) {
-    document.getElementById('user-name').textContent = user.name;
-    document.getElementById('user-level').textContent = `Уровень ${user.level} — ${user.levelName}`;
-    document.getElementById('coins').textContent = user.coins.toLocaleString('ru');
-    document.getElementById('exp').textContent = user.exp;
-    document.getElementById('join-date').textContent = user.joinDate;
-    document.getElementById('months').textContent = user.months;
-    document.getElementById('total-train').textContent = user.totalTrainings;
-    document.getElementById('current-train').textContent = user.currentTrainings;
-    document.getElementById('train-current').textContent = `${user.currentTrainings} тренировок`;
+function fillDash(user) {
+  document.getElementById('u-name').textContent = user.name;
+  document.getElementById('u-level').textContent = `Уровень ${user.level} — ${user.levelName}`;
+  document.getElementById('u-coins').textContent = user.coins.toLocaleString('ru');
+  document.getElementById('u-exp').textContent = user.exp;
+  document.getElementById('u-join').textContent = user.joinDate;
+  document.getElementById('u-months').textContent = user.months;
+  document.getElementById('u-total').textContent = user.totalTrainings;
+  document.getElementById('u-current').textContent = user.currentTrainings;
+  document.getElementById('u-trains').textContent = `${user.currentTrainings} тренировок`;
 
-    // Progress bar (mock: progress within level)
-    const progress = ((user.currentTrainings % 10) / 10) * 100;
-    setTimeout(() => {
-      document.getElementById('train-bar').style.width = progress + '%';
-    }, 300);
+  // Progress bar
+  const pct = ((user.currentTrainings % 10) / 10) * 100;
+  setTimeout(() => document.getElementById('u-bar').style.width = pct + '%', 300);
 
-    buildWeek();
-  }
-
-  function showDashboard() {
-    document.getElementById('login-page').style.display = 'none';
-    document.getElementById('dashboard-page').style.display = 'block';
-    document.getElementById('bottom-nav').style.display = 'flex';
-    fillDashboard(MOCK_USER);
-  }
-
-  function showLogin() {
-    document.getElementById('login-page').style.display = 'flex';
-    document.getElementById('dashboard-page').style.display = 'none';
-    document.getElementById('bottom-nav').style.display = 'none';
-  }
-
-  // ─── Auth simulation (will be replaced with real TG Login Widget) ───
-  function doLogin() {
-    // Here will be: Telegram.Login.auth({bot_id: 'AlenaOstanina_bot'}, callback)
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:300;backdrop-filter:blur(4px)';
-    overlay.innerHTML = `
-      <div style="background:#15152a;border:1px solid rgba(42,171,238,0.3);border-radius:24px;padding:32px;max-width:300px;width:90%;text-align:center">
-        <div style="font-size:48px;margin-bottom:16px">📱</div>
-        <div style="font-weight:900;font-size:18px;margin-bottom:8px">Открываем Telegram</div>
-        <div style="color:#9090b0;font-size:14px;margin-bottom:24px">Подтверди вход в приложении Telegram</div>
-        <div style="display:flex;gap:10px">
-          <button onclick="this.closest('div[style]').remove()" style="flex:1;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#9090b0;font-family:inherit;font-size:14px;cursor:pointer">Отмена</button>
-          <button onclick="this.closest('div[style]').remove();showDashboard()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#ff4d8d,#a855f7);color:white;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer">Войти ✓</button>
-        </div>
-      </div>`;
-    document.body.appendChild(overlay);
-  }
-
-  function doLogout() {
-    showLogin();
-  }
-
-  // ─── Init ───
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    setTimeout(() => {
-      loader.style.opacity = '0';
-      setTimeout(() => {
-        loader.style.display = 'none';
-        // Check if already logged in (will use localStorage/session in real version)
-        const loggedIn = sessionStorage.getItem('tg_logged_in');
-        if (loggedIn) showDashboard();
-        else showLogin();
-      }, 400);
-    }, 600);
+  // Week
+  const week = document.getElementById('week');
+  week.innerHTML = '';
+  DAYS.forEach((d, i) => {
+    const done = user.weekCheckins[i];
+    const isToday = i === todayIdx;
+    const el = document.createElement('div');
+    el.className = 'day' + (done ? ' done' : '') + (isToday && !done ? ' today' : '');
+    el.innerHTML = `<span>${d}</span><span class="day-ch">${done ? '✓' : (isToday ? '•' : '')}</span>`;
+    week.appendChild(el);
   });
+
+  // Month theme
+  const m = new Date().getMonth() + 1;
+  const theme = THEMES[m] || THEMES[3];
+  document.getElementById('month-theme').textContent = theme[0];
+  document.getElementById('month-desc').textContent = theme[1];
+}
+
+function showDash() {
+  document.getElementById('login-screen').classList.remove('active');
+  document.getElementById('dash-screen').classList.add('active');
+  document.getElementById('bnav').style.display = 'flex';
+  fillDash(MOCK);
+}
+
+function doLogout() {
+  sessionStorage.removeItem('tg_auth');
+  document.getElementById('dash-screen').classList.remove('active');
+  document.getElementById('bnav').style.display = 'none';
+  document.getElementById('login-screen').classList.add('active');
+}
+
+function setTab(el) {
+  document.querySelectorAll('.nav-it').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function checkIn() {
+  MOCK.weekCheckins[todayIdx] = true;
+  fillDash(MOCK);
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:rgba(114,239,176,0.2);border:1px solid rgba(114,239,176,0.4);color:#72efb0;padding:12px 24px;border-radius:20px;font-weight:800;font-size:14px;z-index:400;animation:slideUp 0.3s ease';
+  t.textContent = '⚡ Зарядка отмечена!';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+// ── Telegram Login Modal (симуляция) ──
+function openTgModal() {
+  const bg = document.createElement('div');
+  bg.className = 'modal-bg';
+  bg.innerHTML = `
+    <div class="modal">
+      <div class="modal-icon">📱</div>
+      <div class="modal-title">Войти через Telegram</div>
+      <div class="modal-text">Откроется окно Telegram — просто подтверди вход. Никаких паролей!</div>
+      <div class="modal-btns">
+        <button class="modal-cancel" onclick="this.closest('.modal-bg').remove()">Отмена</button>
+        <button class="modal-ok" onclick="this.closest('.modal-bg').remove(); sessionStorage.setItem('tg_auth','1'); showDash()">Войти ✓</button>
+      </div>
+    </div>`;
+  document.body.appendChild(bg);
+}
+
+// ── Init ──
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.style.display = 'none';
+      if (sessionStorage.getItem('tg_auth')) showDash();
+    }, 400);
+  }, 700);
+});
 </script>
 </body>
 </html>
