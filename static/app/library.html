@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>30ForMe — Библиотека тренировок</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0b14;
+    --card: rgba(22,17,34,0.95);
+    --border: rgba(255,255,255,0.07);
+    --accent: #d4a0ff;
+    --accent2: #ff7eb3;
+    --gold: #ffd166;
+    --green: #72efb0;
+    --text: #f5f0ff;
+    --muted: #8878a8;
+    --radius: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 30px; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 80% 0%, rgba(212,160,255,0.1) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── TOP BAR ── */
+  .top-bar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(14,11,20,0.95); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px 12px;
+  }
+  .top-inner { max-width: 700px; margin: 0 auto; }
+  .brand {
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; font-style: italic;
+    background: linear-gradient(135deg, #d4a0ff, #ff7eb3);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 14px; display: block;
+  }
+
+  /* ── FILTERS ── */
+  .filters { display: flex; flex-direction: column; gap: 10px; }
+
+  .filter-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+  .filter-label { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+
+  /* Section pills */
+  .section-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 800;
+    border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+    color: var(--muted); cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .pill.active { background: rgba(212,160,255,0.15); border-color: rgba(212,160,255,0.4); color: var(--accent); }
+  .pill:hover:not(.active) { border-color: rgba(255,255,255,0.15); color: var(--text); }
+
+  /* Tag select */
+  .tag-select {
+    appearance: none; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    color: var(--text); padding: 7px 32px 7px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 700; font-family: 'Nunito', sans-serif;
+    cursor: pointer; outline: none; min-width: 180px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238878a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center;
+  }
+  .tag-select option { background: #1a1128; }
+  .tag-select:focus { border-color: rgba(212,160,255,0.4); }
+
+  /* Search */
+  .search-wrap { position: relative; flex: 1; min-width: 200px; }
+  .search-input {
+    width: 100%; padding: 8px 12px 8px 36px;
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 20px; color: var(--text); font-size: 13px; font-weight: 700;
+    font-family: 'Nunito', sans-serif; outline: none;
+  }
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { border-color: rgba(212,160,255,0.4); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 14px; pointer-events: none; }
+
+  /* Stats line */
+  .stats-line { font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 4px; }
+  .stats-line span { color: var(--accent); }
+
+  /* ── CONTENT ── */
+  .content { max-width: 700px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+  /* ── VIDEO CARD ── */
+  .video-grid { display: flex; flex-direction: column; gap: 16px; }
+
+  .video-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .video-card:hover { transform: translateY(-2px); border-color: rgba(212,160,255,0.2); }
+
+  /* VK embed wrapper */
+  .video-thumb {
+    position: relative; width: 100%; padding-top: 56.25%; /* 16:9 */
+    background: #0a0814; cursor: pointer; overflow: hidden;
+  }
+  .video-thumb iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+  }
+  .video-thumb .play-overlay {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.3); transition: opacity 0.2s;
+  }
+  .play-btn {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(212,160,255,0.9); display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(212,160,255,0.4);
+  }
+  .play-btn svg { width: 22px; height: 22px; fill: white; margin-left: 3px; }
+
+  .video-body { padding: 14px 16px; }
+
+  .video-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .video-date { font-size: 11px; font-weight: 700; color: var(--muted); }
+  .section-badge {
+    font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 10px;
+    background: rgba(212,160,255,0.1); color: var(--accent); border: 1px solid rgba(212,160,255,0.2);
+  }
+
+  .video-title { font-size: 15px; font-weight: 800; line-height: 1.4; margin-bottom: 10px; }
+
+  /* Tags */
+  .video-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .tag-chip {
+    font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 8px;
+    background: rgba(255,126,179,0.08); color: #ff9ec8; border: 1px solid rgba(255,126,179,0.15);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .tag-chip:hover { background: rgba(255,126,179,0.18); }
+
+  /* Links row */
+  .video-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px; border-radius: 10px; font-size: 12px; font-weight: 800;
+    text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; font-family: 'Nunito', sans-serif;
+  }
+  .link-yt { background: rgba(255,0,0,0.12); color: #ff6666; border: 1px solid rgba(255,0,0,0.2); }
+  .link-yt:hover { background: rgba(255,0,0,0.22); }
+  .link-vk { background: rgba(74,119,255,0.12); color: #7a9fff; border: 1px solid rgba(74,119,255,0.2); }
+  .link-vk:hover { background: rgba(74,119,255,0.22); }
+  .link-more {
+    background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border);
+    margin-left: auto;
+  }
+  .link-more:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+
+  /* Expandable desc */
+  .video-desc {
+    margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);
+    font-size: 13px; line-height: 1.7; color: #ccc;
+    display: none; white-space: pre-wrap;
+  }
+  .video-desc.open { display: block; }
+
+  /* ── LOADER ── */
+  .loader { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 16px; }
+  .spin { width: 40px; height: 40px; border: 3px solid rgba(212,160,255,0.15); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  .loader-text { color: var(--muted); font-size: 14px; font-weight: 700; }
+
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-text { font-size: 15px; font-weight: 700; }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .video-card { animation: fadeIn 0.35s ease both; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-inner">
+    <span class="brand">30ForMe — Библиотека</span>
+
+    <div class="filters">
+      <!-- Разделы -->
+      <div class="filter-row">
+        <span class="filter-label">Раздел:</span>
+        <div class="section-pills" id="section-pills">
+          <div class="pill active" data-section="">Все</div>
+          <div class="pill" data-section="Зарядки">Зарядки</div>
+          <div class="pill" data-section="Антиотеки">Антиотеки</div>
+          <div class="pill" data-section="Осанка">Осанка</div>
+          <div class="pill" data-section="Антицеллюлит">Антицеллюлит</div>
+          <div class="pill" data-section="Плоский живот">Плоский живот</div>
+        </div>
+      </div>
+
+      <!-- Теги + поиск -->
+      <div class="filter-row">
+        <span class="filter-label">Тег:</span>
+        <select class="tag-select" id="tag-select">
+          <option value="">— Все теги —</option>
+          <option>ЗдоровьеСуставов</option>
+          <option>РаскрытиеТаза</option>
+          <option>УшкиНаПопе</option>
+          <option>Ягодицы</option>
+          <option>ЗдоровьеСтоп</option>
+          <option>НаБаланс</option>
+          <option>ДряблостьГалифе</option>
+          <option>РастяжкаНог</option>
+          <option>ЭфирНутрициолог</option>
+          <option>ОтОтеков</option>
+          <option>ДляПоясницы</option>
+          <option>РаскрытиеГрудного</option>
+          <option>ЗдоровьеСпины</option>
+          <option>Зарядка</option>
+          <option>ПодтяжкаРук</option>
+          <option>ЛегкостьШеи</option>
+          <option>Пресс</option>
+          <option>МассажЛица</option>
+          <option>ГибкостьТела</option>
+          <option>ВоВремяМесячных</option>
+        </select>
+
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" id="search-input" type="text" placeholder="Поиск по названию...">
+        </div>
+      </div>
+
+      <div class="stats-line" id="stats-line">Загрузка...</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <div class="loader" id="loader">
+    <div class="spin"></div>
+    <div class="loader-text">Загружаем тренировки...</div>
+  </div>
+  <div class="video-grid" id="video-grid"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div class="empty-icon">🔍</div>
+    <div class="empty-text">Ничего не найдено.<br>Попробуй другой фильтр.</div>
+  </div>
+</div>
+
+<script>
+// ══ CONFIG ══
+// Вставь URL нового Apps Script для библиотеки
+const LIB_SCRIPT_URL = '';
+
+// ══ STATE ══
+let allVideos = [];
+let activeSection = '';
+let activeTag = '';
+let searchQuery = '';
+
+// ══ LOAD ══
+async function loadVideos() {
+  try {
+    const resp = await fetch(LIB_SCRIPT_URL);
+    const data = await resp.json();
+    if (data.ok) {
+      allVideos = data.videos;
+      renderVideos();
+    } else {
+      showError(data.error);
+    }
+  } catch(e) {
+    showError(e.toString());
+  }
+  document.getElementById('loader').style.display = 'none';
+}
+
+// ══ RENDER ══
+function renderVideos() {
+  const grid = document.getElementById('video-grid');
+  const empty = document.getElementById('empty');
+
+  // Filter
+  let filtered = allVideos.filter(v => {
+    const matchSection = !activeSection || v.sections.includes(activeSection);
+    const matchTag = !activeTag || v.tags.includes(activeTag);
+    const matchSearch = !searchQuery || v.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchSection && matchTag && matchSearch;
+  });
+
+  // Stats
+  const total = allVideos.length;
+  const shown = filtered.length;
+  document.getElementById('stats-line').innerHTML =
+    `Показано <span>${shown}</span> из <span>${total}</span> тренировок`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = filtered.map((v, i) => buildCard(v, i)).join('');
+
+  // Bind expand buttons
+  grid.querySelectorAll('.link-more').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const desc = btn.closest('.video-body').querySelector('.video-desc');
+      const isOpen = desc.classList.toggle('open');
+      btn.textContent = isOpen ? '▲ Свернуть' : '▼ Подробнее';
+    });
+  });
+
+  // Bind tag chips — click to filter
+  grid.querySelectorAll('.tag-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const tag = chip.dataset.tag;
+      document.getElementById('tag-select').value = tag;
+      activeTag = tag;
+      renderVideos();
+    });
+  });
+}
+
+function buildCard(v, idx) {
+  // VK embed
+  const vkEmbed = buildVkEmbed(v.vk);
+
+  // Sections badges
+  const sectionBadges = v.sections.map(s =>
+    `<span class="section-badge">${s}</span>`
+  ).join('');
+
+  // Tag chips
+  const tagChips = v.tags.map(t =>
+    `<span class="tag-chip" data-tag="${t}">#${t}</span>`
+  ).join('');
+
+  // Links
+  const ytLink = v.youtube
+    ? `<a class="link-btn link-yt" href="${v.youtube}" target="_blank">▶ YouTube</a>`
+    : '';
+  const vkLink = v.vk
+    ? `<a class="link-btn link-vk" href="${v.vk}" target="_blank">▶ ВКонтакте</a>`
+    : '';
+
+  // Short title from desc (first line)
+  const lines = v.desc.split('\n').filter(l => l.trim());
+  const title = lines[0] || 'Тренировка';
+  const rest = lines.slice(1).join('\n').trim();
+
+  return `
+    <div class="video-card" style="animation-delay:${idx * 0.04}s">
+      ${vkEmbed}
+      <div class="video-body">
+        <div class="video-meta">
+          <span class="video-date">📅 ${v.date}</span>
+          ${sectionBadges}
+        </div>
+        <div class="video-title">${title}</div>
+        ${tagChips ? `<div class="video-tags">${tagChips}</div>` : ''}
+        <div class="video-links">
+          ${ytLink}
+          ${vkLink}
+          ${rest ? `<button class="link-btn link-more">▼ Подробнее</button>` : ''}
+        </div>
+        ${rest ? `<div class="video-desc">${escHtml(rest)}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+function buildVkEmbed(vkUrl) {
+  if (!vkUrl) {
+    return `<div class="video-thumb" style="padding-top:56.25%;background:#0a0814;position:relative">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8878a8;font-size:13px;font-weight:700">Видео недоступно</div>
+    </div>`;
+  }
+
+  // Конвертируем VK URL в embed
+  // https://vk.com/video-XXXXXX_XXXXXX → https://vk.com/video_ext.php?oid=-XXXXXX&id=XXXXXX
+  let embedUrl = '';
+  const match = vkUrl.match(/video(-?\d+)_(\d+)/);
+  if (match) {
+    embedUrl = `https://vk.com/video_ext.php?oid=${match[1]}&id=${match[2]}&hd=2`;
+  }
+
+  if (embedUrl) {
+    return `<div class="video-thumb">
+      <iframe src="${embedUrl}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>`;
+  }
+
+  // Если не смогли распарсить — просто ссылка
+  return `<div class="video-thumb" style="padding-top:56.25%;background:#0a0814;position:relative">
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+      <a href="${vkUrl}" target="_blank" class="link-btn link-vk">▶ Открыть видео ВК</a>
+    </div>
+  </div>`;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showError(msg) {
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('video-grid').innerHTML =
+    `<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-text">Ошибка загрузки:<br>${msg}</div></div>`;
+}
+
+// ══ FILTERS ══
+document.getElementById('section-pills').addEventListener('click', e => {
+  const pill = e.target.closest('.pill');
+  if (!pill) return;
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  activeSection = pill.dataset.section;
+  renderVideos();
+});
+
+document.getElementById('tag-select').addEventListener('change', e => {
+  activeTag = e.target.value;
+  renderVideos();
+});
+
+let searchTimer;
+document.getElementById('search-input').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    searchQuery = e.target.value.trim();
+    renderVideos();
+  }, 300);
+});
+
+// ══ INIT ══
+window.addEventListener('load', () => {
+  if (LIB_SCRIPT_URL) {
+    loadVideos();
+  } else {
+    document.getElementById('loader').innerHTML =
+      `<div class="loader-text" style="color:#ff7eb3">⚠️ LIB_SCRIPT_URL не задан.<br>Вставь URL Apps Script в код.</div>`;
+  }
+});
+</script>
+</body>
+</html>
