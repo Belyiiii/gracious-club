@@ -328,7 +328,7 @@ function renderVideos() {
 
 function buildCard(v, idx) {
   // VK embed
-  const vkEmbed = buildVkEmbed(v.vk);
+  const vkEmbed = buildVkEmbed(v.vk, v.youtube);
 
   // Sections badges
   const sectionBadges = v.sections.map(s =>
@@ -373,32 +373,28 @@ function buildCard(v, idx) {
     </div>`;
 }
 
-function buildVkEmbed(vkUrl) {
-  if (!vkUrl) {
-    return `<div class="video-thumb" style="padding-top:56.25%;background:#0a0814;position:relative">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8878a8;font-size:13px;font-weight:700">Видео недоступно</div>
+function buildVkEmbed(vkUrl, youtubeUrl) {
+  // Пробуем превью с YouTube
+  const ytMatch = youtubeUrl && youtubeUrl.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/
+  );
+
+  if (ytMatch) {
+    const ytId = ytMatch[1];
+    const thumb = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+    return `<div class="video-thumb" style="cursor:default">
+      <img src="${thumb}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div class="play-overlay">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
     </div>`;
   }
 
-  // Конвертируем VK URL в embed
-  // https://vk.com/video-XXXXXX_XXXXXX → https://vk.com/video_ext.php?oid=-XXXXXX&id=XXXXXX
-  let embedUrl = '';
-  const match = vkUrl.match(/video(-?\d+)_(\d+)/);
-  if (match) {
-    embedUrl = `https://vk.com/video_ext.php?oid=${match[1]}&id=${match[2]}&hd=2`;
-  }
-
-  if (embedUrl) {
-    return `<div class="video-thumb">
-      <iframe src="${embedUrl}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
-    </div>`;
-  }
-
-  // Если не смогли распарсить — просто ссылка
+  // Нет превью — просто заглушка
   return `<div class="video-thumb" style="padding-top:56.25%;background:#0a0814;position:relative">
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-      <a href="${vkUrl}" target="_blank" class="link-btn link-vk">▶ Открыть видео ВК</a>
-    </div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8878a8;font-size:13px;font-weight:700">🎥 Видео</div>
   </div>`;
 }
 
