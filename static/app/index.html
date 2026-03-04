@@ -144,7 +144,7 @@
   <div class="loader-text" id="loader-text">Загрузка...</div>
 </div>
 
-<!-- ══ LOGIN ══ -->
+<!-- LOGIN -->
 <div class="screen page" id="login-screen">
   <div class="login-top">
     <div class="logo-mark">Online клуб</div>
@@ -153,8 +153,6 @@
   </div>
   <div class="login-card">
     <p class="login-desc">Войди через Telegram — никаких паролей, один клик 🚀</p>
-
-    <!-- Реальный Telegram Login Widget -->
     <div class="tg-widget-wrap">
       <script
         async
@@ -166,7 +164,6 @@
         data-request-access="write">
       </script>
     </div>
-
     <div class="login-hint">🔒 Только имя и Telegram ID. Ничего лишнего.</div>
     <div class="login-features">
       <div class="feat"><span class="feat-icon">🏆</span> Уровень, монеты и прогресс</div>
@@ -176,7 +173,7 @@
   </div>
 </div>
 
-<!-- ══ DASHBOARD ══ -->
+<!-- DASHBOARD -->
 <div class="screen page" id="dash-screen">
   <div class="top-bar">
     <span class="brand">30ForMe</span>
@@ -184,13 +181,12 @@
   </div>
   <div class="content">
 
-    <!-- Hero -->
     <div class="hero fi">
       <div class="avatar" id="u-avatar">👤</div>
       <div class="hero-info">
         <div class="hero-name" id="u-name">—</div>
         <div class="hero-tg" id="u-tg"></div>
-        <div id="u-sub-badge" class="sub-badge inactive">⏳ Нет подписки</div>
+        <div id="u-sub-badge" class="sub-badge inactive">⏳ Проверяем...</div>
         <div class="sub-expires" id="u-expires"></div>
       </div>
     </div>
@@ -207,38 +203,34 @@
     </div>
 
     <!-- Есть подписка -->
-    <div id="sub-content" style="display:contents">
-
-      <div class="stats-row fi" id="stats-block" style="display:none">
-        <div class="stat">
-          <div class="stat-glow" style="background:#ffd166"></div>
-          <div class="stat-emoji">🪙</div>
-          <div class="stat-val" id="u-coins" style="color:#ffd166">—</div>
-          <div class="stat-lbl">Монет</div>
-        </div>
-        <div class="stat">
-          <div class="stat-glow" style="background:#72efb0"></div>
-          <div class="stat-emoji">⭐</div>
-          <div class="stat-val" id="u-exp" style="color:#72efb0">—</div>
-          <div class="stat-lbl">Опыт</div>
-        </div>
+    <div class="stats-row fi" id="stats-block" style="display:none">
+      <div class="stat">
+        <div class="stat-glow" style="background:#ffd166"></div>
+        <div class="stat-emoji">🪙</div>
+        <div class="stat-val" id="u-coins" style="color:#ffd166">—</div>
+        <div class="stat-lbl">Монет</div>
       </div>
-
-      <div class="info-card fi" id="info-block" style="display:none">
-        <div class="section-title">📋 Моя статистика</div>
-        <div class="row"><span class="row-lbl">📅 В клубе с</span><span class="row-val" id="u-join">—</span></div>
-        <div class="row"><span class="row-lbl">⏳ Месяцев в спорте</span><span class="row-val" id="u-months">—</span></div>
-        <div class="row"><span class="row-lbl">🏋️ Всего тренировок</span><span class="row-val" id="u-total">—</span></div>
-        <div class="row"><span class="row-lbl">🔄 Текущий счётчик</span><span class="row-val" id="u-current">—</span></div>
+      <div class="stat">
+        <div class="stat-glow" style="background:#72efb0"></div>
+        <div class="stat-emoji">⭐</div>
+        <div class="stat-val" id="u-exp" style="color:#72efb0">—</div>
+        <div class="stat-lbl">Опыт</div>
       </div>
+    </div>
 
-      <div class="actions fi" id="actions-block" style="display:none">
-        <a class="act" href="#"><div class="act-icon" style="background:rgba(255,126,179,0.1)">🎥</div><div class="act-lbl">Библиотека тренировок</div></a>
-        <a class="act" href="#" onclick="checkIn(); return false;"><div class="act-icon" style="background:rgba(114,239,176,0.1)">✅</div><div class="act-lbl">Отметить зарядку</div></a>
-        <a class="act" href="#"><div class="act-icon" style="background:rgba(255,209,102,0.1)">🪙</div><div class="act-lbl">Про монеты</div></a>
-        <a class="act" href="#"><div class="act-icon" style="background:rgba(212,160,255,0.1)">📸</div><div class="act-lbl">Фото прогресса</div></a>
-      </div>
+    <div class="info-card fi" id="info-block" style="display:none">
+      <div class="section-title">📋 Моя статистика</div>
+      <div class="row"><span class="row-lbl">📅 В клубе с</span><span class="row-val" id="u-join">—</span></div>
+      <div class="row"><span class="row-lbl">⏳ Месяцев в спорте</span><span class="row-val" id="u-months">—</span></div>
+      <div class="row"><span class="row-lbl">🏋️ Всего тренировок</span><span class="row-val" id="u-total">—</span></div>
+      <div class="row"><span class="row-lbl">🔄 Текущий счётчик</span><span class="row-val" id="u-current">—</span></div>
+    </div>
 
+    <div class="actions fi" id="actions-block" style="display:none">
+      <a class="act" id="btn-library" href="#"><div class="act-icon" style="background:rgba(255,126,179,0.1)">🎥</div><div class="act-lbl">Библиотека тренировок</div></a>
+      <a class="act" href="#" onclick="checkIn(); return false;"><div class="act-icon" style="background:rgba(114,239,176,0.1)">✅</div><div class="act-lbl">Отметить зарядку</div></a>
+      <a class="act" href="#"><div class="act-icon" style="background:rgba(255,209,102,0.1)">🪙</div><div class="act-lbl">Про монеты</div></a>
+      <a class="act" href="#"><div class="act-icon" style="background:rgba(212,160,255,0.1)">📸</div><div class="act-lbl">Фото прогресса</div></a>
     </div>
 
   </div>
@@ -246,49 +238,38 @@
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bnav">
-  <div class="nav-it active"><span class="nav-em">🏠</span><span>Главная</span></div>
-  <div class="nav-it"><span class="nav-em">🎥</span><span>Тренировки</span></div>
-  <div class="nav-it"><span class="nav-em">✅</span><span>Зарядка</span></div>
+  <div class="nav-it active" onclick="showMain()"><span class="nav-em">🏠</span><span>Главная</span></div>
+  <div class="nav-it" onclick="goLibrary()"><span class="nav-em">🎥</span><span>Тренировки</span></div>
+  <div class="nav-it" onclick="checkIn()"><span class="nav-em">✅</span><span>Зарядка</span></div>
   <div class="nav-it"><span class="nav-em">👤</span><span>Профиль</span></div>
 </nav>
 
 <script>
-// ══ CONFIG ══
-// Заполним после создания Google Apps Script
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJvdNhIXcG_IrrSAWqqZciZtdW9mo7iQMluexjJcYngIQRR6kYs9uQVFlVk4raGuXBFg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2gnN5Y8yh2eTLkp1bnBUgnsg72sGhCx28gU96s8hWZJdnz2cz4mFC7Tmo51dSQIFTEw/exec';
+const LIBRARY_URL = 'library.html';
 
-// ══ TELEGRAM AUTH CALLBACK ══
-// Telegram вызывает эту функцию автоматически после входа
+let currentTgId = null;
+
 function onTelegramAuth(user) {
-  console.log('TG Auth:', user);
   sessionStorage.setItem('tg_user', JSON.stringify(user));
   setLoader('Загружаем профиль...');
-
-  if (APPS_SCRIPT_URL) {
-    loadFromSheet(user);
-  } else {
-    // Apps Script ещё не подключён — показываем кабинет с данными из TG
-    setTimeout(() => renderDash(user, null), 700);
-  }
+  loadFromSheet(user);
 }
 
-// ══ LOAD FROM GOOGLE SHEETS ══
 async function loadFromSheet(tgUser) {
   try {
     const r = await fetch(`${APPS_SCRIPT_URL}?tg_id=${tgUser.id}`);
     const data = await r.json();
     renderDash(tgUser, data);
   } catch(e) {
-    console.error(e);
     renderDash(tgUser, null);
   }
 }
- 
-// ══ RENDER DASHBOARD ══
+
 function renderDash(tgUser, data) {
   hideLoader();
+  currentTgId = tgUser.id;
 
-  // Имя и фото из Telegram
   const name = [tgUser.first_name, tgUser.last_name].filter(Boolean).join(' ') || 'Участница';
   document.getElementById('u-name').textContent = name;
   document.getElementById('u-tg').textContent = tgUser.username ? `@${tgUser.username}` : `ID: ${tgUser.id}`;
@@ -299,65 +280,62 @@ function renderDash(tgUser, data) {
     document.getElementById('u-avatar').textContent = name[0].toUpperCase();
   }
 
-  // Статус подписки
-  // data === null → Apps Script не подключён ещё, показываем контент
-  // data.hasSubscription === true → подписка активна
-  // data.hasSubscription === false → нет подписки
   const hasSub = data === null ? true : (data.hasSubscription === true);
-
   const badge = document.getElementById('u-sub-badge');
+
   if (hasSub) {
     badge.className = 'sub-badge active';
     badge.textContent = '✅ Подписка активна';
-    if (data && data.subExpires) {
-      document.getElementById('u-expires').textContent = `действует до ${data.subExpires}`;
-    }
-    // Показываем блоки
-    ['stats-block','info-block','actions-block'].forEach(id => {
-      document.getElementById(id).style.display = id === 'stats-block' ? 'grid' : 'flex';
-      if (id === 'info-block') document.getElementById(id).style.display = 'block';
-      if (id === 'actions-block') document.getElementById(id).style.display = 'grid';
-    });
+
+    document.getElementById('stats-block').style.display = 'grid';
+    document.getElementById('info-block').style.display = 'block';
+    document.getElementById('actions-block').style.display = 'grid';
     document.getElementById('no-sub-card').style.display = 'none';
 
-    // Данные из таблицы
-if (data) {
-  setText('u-coins', (data.coins||0).toLocaleString('ru'));
-  setText('u-exp', data.exp || '—');
-  setText('u-join', data.joinDate || '—');
-  setText('u-months', data.months || '—');
-  setText('u-total', data.totalTrainings > 0 ? data.totalTrainings : data.trainings || '—');
-  setText('u-current', data.trainings || '—');
-} else {
-      // Заглушка пока нет Apps Script
-      ['u-coins','u-exp','u-join','u-months','u-total','u-current'].forEach(id => setText(id, '—'));
+    // Ссылка на библиотеку с TG ID
+    document.getElementById('btn-library').href = `${LIBRARY_URL}?tg_id=${tgUser.id}`;
+
+    if (data) {
+      setText('u-coins', (data.coins||0).toLocaleString('ru'));
+      setText('u-exp', data.exp || '—');
+      setText('u-join', data.joinDate || '—');
+      setText('u-months', data.months || '—');
+      setText('u-total', data.totalTrainings > 0 ? data.totalTrainings : (data.trainings || '—'));
+      setText('u-current', data.trainings || '—');
     }
   } else {
     badge.className = 'sub-badge inactive';
-    badge.textContent = '⏳ Нет подписки';
+    badge.textContent = '🔒 Нет подписки';
     document.getElementById('no-sub-card').style.display = 'block';
+    document.getElementById('stats-block').style.display = 'none';
+    document.getElementById('info-block').style.display = 'none';
+    document.getElementById('actions-block').style.display = 'none';
   }
 
-  // Показываем кабинет
   document.getElementById('login-screen').classList.remove('active');
   document.getElementById('dash-screen').classList.add('active');
   document.getElementById('bnav').style.display = 'flex';
 }
 
-// ══ LOGOUT ══
+function goLibrary() {
+  if (currentTgId) window.location.href = `${LIBRARY_URL}?tg_id=${currentTgId}`;
+}
+
+function showMain() {
+  document.querySelectorAll('.nav-it').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-it')[0].classList.add('active');
+}
+
 function doLogout() {
   sessionStorage.removeItem('tg_user');
+  currentTgId = null;
   document.getElementById('dash-screen').classList.remove('active');
   document.getElementById('bnav').style.display = 'none';
   document.getElementById('login-screen').classList.add('active');
 }
 
-// ══ CHECK IN ══
-function checkIn() {
-  showToast('⚡ Зарядка отмечена!');
-}
+function checkIn() { showToast('⚡ Зарядка отмечена!'); }
 
-// ══ HELPERS ══
 function setText(id, val) { const el = document.getElementById(id); if(el) el.textContent = val; }
 
 function setLoader(text) {
@@ -379,7 +357,6 @@ function showToast(msg) {
   setTimeout(() => t.remove(), 2500);
 }
 
-// ══ INIT ══
 window.addEventListener('load', () => {
   const l = document.getElementById('loader');
   setTimeout(() => {
@@ -390,8 +367,8 @@ window.addEventListener('load', () => {
       if (saved) {
         try {
           const user = JSON.parse(saved);
-          if (APPS_SCRIPT_URL) { setLoader('Загружаем профиль...'); loadFromSheet(user); }
-          else renderDash(user, null);
+          setLoader('Загружаем профиль...');
+          loadFromSheet(user);
         } catch(e) {
           sessionStorage.removeItem('tg_user');
           document.getElementById('login-screen').classList.add('active');
