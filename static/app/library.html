@@ -372,8 +372,28 @@ document.getElementById('search-input').addEventListener('input', e => {
   clearTimeout(st);
   st = setTimeout(() => { searchQuery = e.target.value.trim(); renderVideos(); }, 300);
 });
+window.addEventListener('load', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const tgId = params.get('tg_id');
 
-window.addEventListener('load', () => { if (LIB_SCRIPT_URL) loadVideos(); });
+  if (!tgId) {
+    window.location.href = 'index.html';
+    return;
+  }
+
+  try {
+    const r = await fetch(`${LIB_SCRIPT_URL}?tg_id=${tgId}`);
+    const data = await r.json();
+    if (!data.hasSubscription) {
+      window.location.href = 'index.html';
+      return;
+    }
+  } catch(e) {
+    // при ошибке проверки — пускаем
+  }
+
+  loadVideos();
+});
 </script>
 </body>
 </html>
