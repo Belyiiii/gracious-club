@@ -265,7 +265,7 @@ let allVideos = [], activeSection = '', activeTag = '', searchQuery = '';
 
 async function loadVideos() {
   try {
-    const resp = await fetch(LIB_SCRIPT_URL);
+    const resp = await fetch(`${LIB_SCRIPT_URL}?type=library`);
     const data = await resp.json();
     if (data.ok) { allVideos = data.videos; renderVideos(); }
     else showError(data.error);
